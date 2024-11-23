@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     "UserType" => $user['UserType'],
                     "Email" => $user['Email']
                 ];
-                
+
                 echo json_encode([
                     "message" => "Login successful.",
                     "user" => $userData

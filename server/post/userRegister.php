@@ -3,7 +3,7 @@ header("Content-Type: application/json");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once "../config/connection.php";
+require_once "../config/connection.php";  // Path to your database connection file
 
 $response = []; // Array to store response message
 
