@@ -1,0 +1,32 @@
+/* outer div */
+.RegProfileDiv1 {
+    display: flex;
+    flex-direction: row;
+}
+
+/* dashboard div */
+.RegProfileDiv1-1 {
+    height: 100vh;
+    width: 370px;
+    background-color: white;
+}
+
+/* profile, Feedbacks*/
+.RegProfileDiv1-2 {
+    width: 200vh;
+}
+
+/* profile div */
+.RegProfileDiv1-2-1 {
+    height: 20%;
+}
+
+/* Feedbacks div */
+.RegProfileDiv1-2-2 {
+    height: 45%;
+}
+
+/* Prev Next Btns div */
+.RegProfileDiv1-2-3 {
+    height: 35%;
+}

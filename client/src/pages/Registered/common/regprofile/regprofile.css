@@ -1,0 +1,64 @@
+.ProfileDiv {
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, .5);
+}
+
+.nameStatusDiv {
+    margin-left: 1%;
+}
+
+.nameStatusDiv>p {
+    margin: 0;
+}
+
+.profileName {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.profileStatus {
+    font-weight: 300;
+}
+
+.profileVR {
+    height: 55px;
+    border: 1px solid #99A8BB;
+    border-right: none;
+    margin-left: 2%;
+}
+
+.profileCalendarDiv {
+    height: 57px;
+    width: 130px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    margin-left: 2%;
+}
+
+.profileCalendarDiv>img {
+    width: 30px;
+}
+
+.profileCalendarDiv>p {
+    color: black;
+    font-weight: bold;
+    margin-left: 5%;
+}
+
+.profileIconsDiv {
+    display: flex;
+    align-items: center;
+    gap: 40%;
+    margin-left: 47%;
+}
+
+.profileIconsDiv>img {
+    width: 40px;
+}
