@@ -1,0 +1,17 @@
+/* Graph Chart Container */
+.GraphChartContainer {
+    width: 48%; /* Adjust width to match Mission size */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, .5);
+    padding: 20px;
+    text-align: center;
+    height: 180px; /* Set height to match Mission section */
+}
+
+/* Label for the Graph Chart */
+.GraphChartLabel {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

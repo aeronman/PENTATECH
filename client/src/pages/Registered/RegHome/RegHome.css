@@ -1,0 +1,68 @@
+/* outer div */
+.RegHomeDiv1 {
+    display: flex;
+    flex-direction: row;
+}
+
+/* dashboard div */
+.RegHomeDiv1-1 {
+    height: 100vh;
+    width: 15%;
+    background-color: white;
+}
+
+/* profile, updates, and chart div */
+.RegHomeDiv1-2 {
+    width: 85%;
+}
+
+/* profile div */
+.RegHomeDiv1-2-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+}
+
+/* updates and mission div */
+.RegHomeDiv1-2-2 {
+    height: 60%;
+    display: flex;
+}
+
+/* updates div */
+.RegHomeDiv1-2-2-1 {
+    width: 50%;
+}
+
+/* total scholars div */
+.RegHomeDiv1-2-2-1-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46.5%;
+}
+
+/* total applicants div */
+.RegHomeDiv1-2-2-1-2 {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* mission div */
+.RegHomeDiv1-2-2-2 {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* chart div */
+.RegHomeDiv1-2-3 {
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

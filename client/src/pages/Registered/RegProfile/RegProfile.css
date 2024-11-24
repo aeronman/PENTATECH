@@ -1,0 +1,16 @@
+.RegApplicationDiv1 {
+    display: flex;
+    flex-direction: row;
+}
+
+/* dashboard div */
+.RegApplicationDiv1-1 {
+    height: 100%;
+    width: 15%;
+    background-color: white;
+}
+
+/* profile, Feedbacks*/
+.RegApplicationDiv1-2 {
+    width: 200vh;
+}

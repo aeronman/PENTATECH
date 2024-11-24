@@ -1,0 +1,251 @@
+/* General Layout */
+.statusPage {
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    border-radius: 10px;
+    max-width: 90%;
+    height: 60%;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header */
+  .statusHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto 2rem auto;
+    max-width: 90%;
+  }
+  .statusHeader-status {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .statusHeader-status.approved {
+    background-color: #28a745;
+  }
+  
+  .statusHeader-status.inprogress {
+    background-color: #007bff;
+  }
+  
+  .statusHeader-status.declined {
+    background-color: #dc3545;
+  }
+  
+  /* Header Actions */
+  .statusHeader-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* Custom Style for H1 */
+  .statusManage-scholarship-header {
+    color: white;
+    background-color: rgb(168, 26, 26);
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 0 auto 2rem auto;
+    max-width: 90%;
+  }
+  
+  /* Search Bar */
+  .statusSearch-bar {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    width: 27%;
+    max-width: 20rem;
+    border-radius: 5px;
+  }
+  
+  /* Buttons */
+  .statusButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .statusFilter-btn {
+    background-color: #ff7b00;
+  }
+  
+  .statusUpdate-btn {
+    background-color: #007bff;
+  }
+  
+  .statusImport-btn {
+    background-color: #28a745;
+  }
+  
+  .statusExport-btn {
+    background-color: #6c757d;
+  }
+  
+  /* Table Styling */
+  .statusApplicant-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    font-size: 1rem;
+    margin: 0 auto;
+  }
+  
+  .statusApplicant-table th,
+  .statusApplicant-table td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  
+  .statusApplicant-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .statusApplicant-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .statusApplicant-table tr:hover {
+    background-color: #ffecec;
+  }
+  
+  /* Header Outside the Table */
+  .statusStudinfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fcecec;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 6%;
+    max-width: 90%;
+    margin: 0 auto 1rem auto;
+  }
+  
+  .statusHeader-item {
+    flex: 1;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Container for status items */
+  .statusButton {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  /* Individual status item */
+  .statusItem {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  /* Status color boxes */
+  .statusBox {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 3px;
+  }
+  
+  .statusBox.approved {
+    background-color: #28a745;
+  }
+  
+  .statusBox.inprogress {
+    background-color: #007bff;
+  }
+  
+  .statusBox.declined {
+    background-color: #dc3545;
+  }
+  
+  /* Text labels */
+  .statusLabel {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Table Status Buttons */
+  .statusApplicant-table .status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .statusApplicant-table .status.approved {
+    background-color: #28a745;
+  }
+  
+  .statusApplicant-table .status.inprogress {
+    background-color: #007bff;
+  }
+  
+  .statusApplicant-table .status.declined {
+    background-color: #dc3545;
+  }
+  
+  /* Pagination */
+  .statusPagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .statusPagination-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .statusPagination-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .statusPagination-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .statusPagination-info {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .statusHeader,
+    .status
+  }
