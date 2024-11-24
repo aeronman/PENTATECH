@@ -2,12 +2,13 @@ import React from "react";
 
 import AdminSidebar from "../common/AdminSidebar/AdminSidebar";
 import AdminProfile from "../common/regprofile/regprofile";
-import AdminTotalScholars from "./common/AdminTotalScholars/AdminTotalScholars";
-import AdminTotalApplicants from "./common/AdminTotalApplicants/AdminTotalApplicants";
-import AdminMission from "./common/AdminMission/AdminMission";
-import AdminLineChart from "./common/AdminLineChart/AdminLineChart";
-import AdminDonutChart from "./common/AdminDonutChart/AdminDonutChart";
-import AdminGraphChart from "./common/AdminGraphChart/AdminGraphChart";
+import AdminTotalScholars from "./components/AdminTotalScholars/AdminTotalScholars";
+import AdminTotalApplicants from "./components/AdminTotalApplicants/AdminTotalApplicants";
+import AdminMission from "./components/AdminMission/AdminMission";
+import AdminLineChart from "./components/AdminLineChart/AdminLineChart";
+import AdminDonutChart from "./components/AdminDonutChart/AdminDonutChart";
+import AdminGraphChart from "./components/AdminGraphChart/AdminGraphChart";
+import VideoCallButton from "./components/VideoCallButton/VideoCallButton";
 
 import "./AdminDashboard.css";
 
@@ -56,6 +57,7 @@ export default function AdminDashboard() {
                     <div className="LineChartContainer">
                         <AdminLineChart />
                     </div>
+                    <VideoCallButton />
                 </div>
             </div>
         </div>
