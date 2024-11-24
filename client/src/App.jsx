@@ -23,6 +23,7 @@ import AdminFeedbacks from "./pages/Admin/Feedback/AdminFeedbacks"
 import AdminInterview from "./pages/Admin/Interview/AdminInterview"
 import AdminScholars from "./pages/Admin/Scholars/AdminScholars"
 import AdminStatus from "./pages/Admin/Status/AdminStatus"
+import AdminProfile from "./pages/Admin/Profile/AdminProfile"
 
 import "./App.css"
 
@@ -54,7 +55,7 @@ export default function App() {
         <Route path="/Admin/Interview" element={<AdminInterview />} />
         <Route path="/Admin/Scholars" element={<AdminScholars />} />
         <Route path="/Admin/Status" element={<AdminStatus />} />
-        <Route path="/Admin/Profile" element={<AdminStatus />} />
+        <Route path="/Admin/Profile" element={<AdminProfile />} />
 
       </Routes>
       

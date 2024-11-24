@@ -27,6 +27,7 @@ export default function AdminSideBar() {
                     <img src="https://res.cloudinary.com/ddiyjqv0u/image/upload/v1724677064/Profile_icon_sidebar_vo9p4a.png" alt="" />
                     <Link className="removeDeco black" to="/Admin/Scholars">Scholars</Link>
                 </span>
+                
                 <span>
                     <img src="https://res.cloudinary.com/ddiyjqv0u/image/upload/v1724677064/Profile_icon_sidebar_vo9p4a.png" alt="" />
                     <Link className="removeDeco black" to="/Admin/Profile">Profile</Link>
