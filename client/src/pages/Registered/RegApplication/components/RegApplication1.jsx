@@ -4,7 +4,7 @@ import './RegApplication1.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function RegApplication1() {
+export default function RegApplication1({ formData, setFormData, onApply }) {
     const scholarshipData = [
         { 
             title: "AVSP at ABOSP", 
@@ -83,21 +83,54 @@ export default function RegApplication1() {
         }
     ];
 
+    const CustomPrevArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className="custom-arrow custom-prev" onClick={onClick}>
+                <span>&lt;</span>
+            </div>
+        );
+    };
+
+    const CustomNextArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className="custom-arrow custom-next" onClick={onClick}>
+                <span>&gt;</span>
+            </div>
+        );
+    };
+
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
+        centerMode: true,  // This makes the center card effect work
+        centerPadding: "0px",  // Removes padding around the center card
         autoplay: false,
-        prevArrow: <button className="slick-prev">←</button>,
-        nextArrow: <button className="slick-next">→</button>,
-        centerMode: true, 
-        focusOnSelect: true,
         responsive: [
-            { breakpoint: 1024, settings: { slidesToShow: 2 } },
-            { breakpoint: 600, settings: { slidesToShow: 1 } },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
         ],
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />,
+    };
+
+    const handleApply = (program) => {
+        setFormData({ ...formData, scholarshipProgram: program });
+        onApply();
     };
 
     return (
@@ -110,7 +143,12 @@ export default function RegApplication1() {
                             <a>{scholarship.subtitle}</a>
                         </div>
                         <p>{scholarship.description}</p>
-                        <button className="apply-button">{scholarship.buttonText}</button>
+                        <button
+                            className="apply-button"
+                            onClick={() => handleApply(scholarship.title)}
+                        >
+                            {scholarship.buttonText}
+                        </button>
                     </div>
                 ))}
             </Slider>

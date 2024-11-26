@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./AdminStatus.css";
-import AdminSideBar from "../common/AdminSidebar/AdminSidebar";
-import RegProfile from "../common/regprofile/regprofile";
-import { FaFilter, FaSync, FaFileImport, FaFileExport, FaCheck, FaTimes, FaClock } from "react-icons/fa";
+import AdminSidebar from "../common/AdminSidebar/AdminSidebar";
+import RegProfile from "../../Registered/common/regprofile/regprofile";
+
+// Add FontAwesome icons
+import { FaCheck, FaClock, FaTimes, FaFilter, FaSearch, FaFileExport, FaFileAlt } from "react-icons/fa";
+import { FaGraduationCap } from 'react-icons/fa';
 
 const StatusPage = () => {
   const applicants = [
@@ -40,9 +43,9 @@ const StatusPage = () => {
     { id: 32, name: "Daniel G. Torres", mobile: "09348576213", email: "daniel.torres@lyceum.edu.ph", status: "In Progress" },
     { id: 33, name: "Alyssa P. Lopez", mobile: "09273841654", email: "alyssa.lopez@bulsu.edu.ph", status: "Declined" },
   ];
-
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 11;
+  const itemsPerPage = 9;
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -60,95 +63,172 @@ const StatusPage = () => {
     }
   };
 
-  return (
-    <div className="statusFeedbacksDiv1">
-      <div className="statusFeedbacksDiv1-1">
-        <AdminSideBar />
-      </div>
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case "Approved":
+        return (
+          <span className="status-badge approved">
+            <FaCheck className="status-icon" /> Approved
+          </span>
+        );
+      case "In Progress":
+        return (
+          <span className="status-badge in-progress">
+            <FaClock className="status-icon" /> In Progress
+          </span>
+        );
+      case "Declined":
+        return (
+          <span className="status-badge declined">
+            <FaTimes className="status-icon" /> Declined
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+  
 
-      <div className="statusRegApplicationDiv1-2">
-        <div className="statusRegApplicationDiv1-2-1">
+  const toggleFilterModal = () => {
+    setIsFilterModalOpen(!isFilterModalOpen);
+  };
+
+  return (
+    <div className="AdminStatus1">
+      <div className="AdminStatus1-1">
+        <AdminSidebar />
+      </div>
+      <div className="AdminStatus1-2">
+        <div className="AdminStatus1-2-1">
           <RegProfile />
         </div>
-
-        <header className="statusHeader">
-          <div className="statusHeader-actions">
-            <input type="text" placeholder="Search user" className="statusSearch-bar" />
-            <button className="statusFilter-btn"><FaFilter /> Filter</button>
-            <button className="statusUpdate-btn"><FaSync /> Update</button>
-            <button className="statusImport-btn"><FaFileImport /> Import</button>
-            <button className="statusExport-btn"><FaFileExport /> Export</button>
-          </div>
-        </header>
-
-        <h1 className="statusManage-scholarship-header">Scholarship Applicants</h1>
-
-        <div className="statusStudinfo">
-          <div className="statusHeader-item"><strong>Student Name</strong></div>
-          <div className="statusHeader-item"><strong>Mobile Number</strong></div>
-          <div className="statusHeader-item"><strong>School Email</strong></div>
-          <div className="statusHeader-item">
-            <strong>Status</strong>
-            <div className="statusButton">
-              <div className="statusItem">
-                <span className="statusBox approved"></span>
-                <span className="statusLabel">Approved</span>
+        <div className="formTitle">
+          <span className="scholarship-status-title">
+            <FaGraduationCap className="status-icon" /> Scholarship Status
+          </span>
+        </div>
+        <div className="AdminStatus1-2-2">
+          <div className="header-section">
+            <div className="search-and-actions">
+              <div className="search-bar-container">
+                <input type="text" placeholder="Search user" className="search-bar" />
+                <FaSearch className="search-icon" />
               </div>
-              <div className="statusItem">
-                <span className="statusBox inprogress"></span>
-                <span className="statusLabel">In Progress</span>
-              </div>
-              <div className="statusItem">
-                <span className="statusBox declined"></span>
-                <span className="statusLabel">Declined</span>
+              <div className="action-buttons">
+                <button className="filter-btn" onClick={toggleFilterModal}>
+                  <FaFilter /> Filter
+                </button>
+                <button className="export-btn">
+                  <FaFileExport /> Export
+                </button>
+                <button className="report-btn">
+                  <FaFileAlt /> Report
+                </button>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="statusPage">
-          <table className="statusApplicant-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Student Name</th>
+                <th>Mobile Number</th>
+                <th>School Email</th>
+                <th>Status</th>
+              </tr>
+            </thead>
             <tbody>
-              {currentApplicants.map((applicant, index) => (
+              {currentApplicants.map((applicant) => (
                 <tr key={applicant.id}>
-                  <td>{indexOfFirstItem + index + 1}</td>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
                   <td>{applicant.name}</td>
                   <td>{applicant.mobile}</td>
                   <td>{applicant.email}</td>
-                  <td>
-                    <span className={`status ${applicant.status.replace(" ", "").toLowerCase()}`}>
-                      {applicant.status === "Approved" && <FaCheck />}
-                      {applicant.status === "In Progress" && <FaClock />}
-                      {applicant.status === "Declined" && <FaTimes />}
-                      {applicant.status}
-                    </span>
-                  </td>
+                  <td>{getStatusBadge(applicant.status)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div className="statusPagination">
-            <button
-              className={`statusPagination-btn ${currentPage === 1 ? "disabled" : ""}`}
-              onClick={prevPage}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <span className="statusPagination-info">
-              Page {currentPage} of {Math.ceil(applicants.length / itemsPerPage)}
-            </span>
-            <button
-              className={`statusPagination-btn ${currentPage === Math.ceil(applicants.length / itemsPerPage) ? "disabled" : ""}`}
-              onClick={nextPage}
-              disabled={currentPage === Math.ceil(applicants.length / itemsPerPage)}
-            >
-              Next
-            </button>
+          <div className="pagination">
+            <button onClick={prevPage}>Previous</button>
+            <button onClick={nextPage}>Next</button>
           </div>
         </div>
       </div>
+
+      {/* Filter Modal */}
+      {isFilterModalOpen && (
+        <div className="filter-modal">
+          <div className="filter-header">
+            <h3>Filter Contents</h3>
+            <button className="close-btn" onClick={toggleFilterModal}>
+              &times;
+            </button>
+          </div>
+          <div className="status-filter-content">
+                <div className="status-filter-columns">
+                  <div className="status-left-column">
+                    <h4>Sort By</h4>
+                    <select>
+                      <option value="">-- Select a column --</option>
+                      <option value="name">Full Name</option>
+                      <option value="id">ID</option>
+                      <option value="scholarshipProgram">Scholarship Program</option>
+                      <option value="scholarshipStatus">Scholarship Status</option>
+                    </select>
+                    <h5>Include:</h5>
+                    <label><input type="checkbox" /> Active phone number</label>
+                    <label><input type="checkbox" /> Pending electricity bill</label>
+                    <label><input type="checkbox" /> Barangay</label>
+                    <label><input type="checkbox" /> City/Municipality</label>
+                    <label><input type="checkbox" /> Civil Status</label>
+                    <label><input type="checkbox" /> Course</label>
+                    <label><input type="checkbox" /> Current Level of Education (Sibling)</label>
+                    <label><input type="checkbox" /> Date of Birth</label>
+                    <label><input type="checkbox" /> Single parent?</label>
+                    <label><input type="checkbox" /> Full name of the Father</label>
+                    <label><input type="checkbox" /> Full name of the Mother</label>
+                    <label><input type="checkbox" /> Grades/Marks (General Average)</label>
+                    <label><input type="checkbox" /> Hobbies and other interests</label>
+                    <label><input type="checkbox" /> ID/School/LRN Number</label>
+                    <label><input type="checkbox" /> Last school attended</label>
+                    <label><input type="checkbox" /> Level/Year</label>
+                  </div>
+                  <div className="status-right-column">
+                    <h4>Order</h4>
+                    <select>
+                      <option value="ascending">Ascending</option>
+                      <option value="descending">Descending</option>
+                    </select>
+                    <h5>                </h5>
+                    <label><input type="checkbox" /> Full Name</label>
+                    <label><input type="checkbox" /> Monthly Income/Salary</label>
+                    <label><input type="checkbox" /> Name of sibling</label>
+                    <label><input type="checkbox" /> Number of Units (if college)</label>
+                    <label><input type="checkbox" /> Number of siblings</label>
+                    <label><input type="checkbox" /> Number of siblings with own families</label>
+                    <label><input type="checkbox" /> Occupation</label>
+                    <label><input type="checkbox" /> Other Expenses?</label>
+                    <label><input type="checkbox" /> PWD?</label>
+                    <label><input type="checkbox" /> Province</label>
+                    <label><input type="checkbox" /> Religion</label>
+                    <label><input type="checkbox" /> Scholarship Program</label>
+                    <label><input type="checkbox" /> School about to Attend</label>
+                    <label><input type="checkbox" /> Semester</label>
+                    <label><input type="checkbox" /> Sex</label>
+                    <label><input type="checkbox" /> Street Address</label>
+                    </div>
+                </div>
+                <button className="status-apply-filter-btn" onClick={toggleFilterModal}>
+                  Save
+                </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
