@@ -10,18 +10,19 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 370px;
+    width: 15%;
     height: 100vh;
     background-color: white;
 }
 
 /* Main Content Section */
 .AdminApplicationDiv1-2 {
-    margin-left: 370px; /* Leave space for the sidebar */
+    margin-left: 15%;
     flex-grow: 1;
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
+    width: 85%;
 }
 
 /* Profile Section */
