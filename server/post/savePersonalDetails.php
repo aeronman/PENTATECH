@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $civilStatus = $_POST['CIVIL_STATUS'];
     $pwd = $_POST['PWD'];
     $contactNo = $_POST['CONTACT_NO'];
+<<<<<<< HEAD
     $pwdID = $_POST['PWD_ID']; 
 
     // Query to insert or update personal details
@@ -36,6 +37,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      $placeOfBirth, $province, $cityMunicipality, $barangay, $streetAddress, $sex, $civilStatus, $pwd, 
                      $contactNo, $pwdID);
 
+=======
+    $pwdID = $_POST['PWD_ID'];
+
+    // Check if data for the given userID exists
+    $checkQuery = "SELECT 1 FROM personal_details WHERE userID = ?";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        // Update the existing record
+        $updateQuery = "UPDATE personal_details 
+                        SET studentID = ?, firstName = ?, middleName = ?, lastName = ?, dateOfBirth = ?, age = ?, 
+                            placeOfBirth = ?, province = ?, cityMunicipality = ?, barangay = ?, streetAddress = ?, 
+                            sex = ?, civilStatus = ?, pwd = ?, contactNo = ?, pwdID = ?
+                        WHERE userID = ?";
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param("ssssssssssssssssi", $studentID, $firstName, $middleName, $lastName, $dateOfBirth, $age, 
+                          $placeOfBirth, $province, $cityMunicipality, $barangay, $streetAddress, $sex, $civilStatus, 
+                          $pwd, $contactNo, $pwdID, $userID);
+    } else {
+        // Insert a new record
+        $insertQuery = "INSERT INTO personal_details (userID, studentID, firstName, middleName, lastName, dateOfBirth, age, placeOfBirth, 
+                            province, cityMunicipality, barangay, streetAddress, sex, civilStatus, pwd, contactNo, pwdID) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("issssssssssssssss", $userID, $studentID, $firstName, $middleName, $lastName, $dateOfBirth, 
+                          $age, $placeOfBirth, $province, $cityMunicipality, $barangay, $streetAddress, $sex, $civilStatus, 
+                          $pwd, $contactNo, $pwdID);
+    }
+
+    // Execute the appropriate query
+>>>>>>> ef9ba032c4ec2e0aef14ad32aafd1476751626d2
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Personal details saved successfully']);
     } else {

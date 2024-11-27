@@ -4,7 +4,7 @@ import './RegApplication1.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function RegApplication1({ formData, setFormData, onApply }) {
+export default function RegApplication1({ moveToForm, formData, setFormData }) {
     const scholarshipData = [
         { 
             title: "AVSP at ABOSP", 
@@ -110,6 +110,10 @@ export default function RegApplication1({ formData, setFormData, onApply }) {
         centerMode: true,  // This makes the center card effect work
         centerPadding: "0px",  // Removes padding around the center card
         autoplay: false,
+        prevArrow: <button className="slick-prev">←</button>,
+        nextArrow: <button className="slick-next">→</button>,
+        centerMode: true, 
+        focusOnSelect: false, // Disable selecting slides when clicking
         responsive: [
             {
                 breakpoint: 1024,
@@ -124,14 +128,18 @@ export default function RegApplication1({ formData, setFormData, onApply }) {
                 },
             },
         ],
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
+    };
+    const applyForScholarship = (scholarshipTitle) => {
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            scholarshipProgram: scholarshipTitle,
+        }));
+        localStorage.setItem("program_applied",scholarshipTitle);
+        moveToForm();
     };
 
-    const handleApply = (program) => {
-        setFormData({ ...formData, scholarshipProgram: program });
-        onApply();
-    };
+    const isButtonDisabled = localStorage.getItem('status') !== null && localStorage.getItem('status') !== '';
 
     return (
         <div className="scholarship-programs-container">
@@ -145,10 +153,13 @@ export default function RegApplication1({ formData, setFormData, onApply }) {
                         <p>{scholarship.description}</p>
                         <button
                             className="apply-button"
-                            onClick={() => handleApply(scholarship.title)}
+                            onClick={() => applyForScholarship(scholarship.title)}
+                            disabled={isButtonDisabled}
                         >
                             {scholarship.buttonText}
                         </button>
+                  
+
                     </div>
                 ))}
             </Slider>

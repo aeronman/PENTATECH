@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import "./RegApplicationCommon.css";
 
-export default function RegApplication1() {
+const RegApplication1 = forwardRef((props, ref) => {
     const [formData, setFormData] = useState({
+        userID: localStorage.getItem("id"),
         Student_ID: "",
-        FIRST_NAME: "", 
+        FIRST_NAME: "",
         MIDDLE_NAME: "",  // Optional field
-        LAST_NAME: "", 
+        LAST_NAME: "",
         DATE_OF_BIRTH: "",
         age: "",
         PLACE_OF_BIRTH: "",
@@ -17,10 +19,47 @@ export default function RegApplication1() {
         SEX: "",
         CIVIL_STATUS: "",
         PWD: "",
-        RELIGION: "",
+        RELIGION:"",
         CONTACT_NO: "",
-        hobbies: ""
+        PWD_ID: null,
+        PWDPreview: null
     });
+
+   
+    useImperativeHandle(ref, () => ({
+        handleSubmit,
+    }));
+
+    
+    useEffect(() => {
+        const storedId = localStorage.getItem("id");
+        if (storedId) {
+            fetchData(storedId);
+        }
+    }, []);
+    const fetchData = (id) => {
+      
+        const storedData = JSON.parse(localStorage.getItem("personalDetails") || '{}');
+        
+        
+        if (storedData.userID === id) {
+            setFormData({
+                ...formData,
+                ...storedData
+            });
+        }
+    };
+
+
+    const validateForm = () => {
+        for (let key in formData) {
+            if (!formData[key] && key !== 'PWDPreview' && key !== 'PWD_ID') {  // Skip PWD fields from required check
+                // alert(`${key} is required!`);
+                return false;
+            }
+        }
+        return true;
+    };
 
     const calculateAge = (dob) => {
         const birthDate = new Date(dob);
@@ -39,11 +78,6 @@ export default function RegApplication1() {
         if (name === "DATE_OF_BIRTH") {
             const age = calculateAge(value);
             setFormData({ ...formData, [name]: value, age: age.toString() });
-        } else if (name === "PWD") {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
         } else {
             setFormData({ ...formData, [name]: value });
         }
@@ -52,45 +86,30 @@ export default function RegApplication1() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData({ 
-                ...formData, 
+            setFormData({
+                ...formData,
                 PWD_ID: file,
-                PWDPreview: URL.createObjectURL(file)  // Generate preview URL
+                PWDPreview: URL.createObjectURL(file), // Generate preview URL for the file
             });
         }
     };
 
-    const handleFileClick = () => {
-        if (formData.PWD === "0") {
-            alert("You cannot upload a PWD ID file because you selected 'No' for PWD.");
-        }
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
 
-        const dataToSend = {
+        const dataToStore = {
             ...formData,
             page: "personalInfo",
-            PWD: formData.PWD === "Yes" ? 1 : 0  // Convert "Yes" and "No" to boolean
+            PWD: formData.PWD === "Yes" ? 1 : 0, // Convert "Yes" and "No" to boolean
         };
 
-        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/post/saveFormData.php`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams(dataToSend)
-        });
+        // Save form data to localStorage
+        localStorage.setItem("personalDetails", JSON.stringify(dataToStore));
 
-        const result = await response.json();
-        if (result.success) {
-            alert("Data saved successfully!");
-        } else {
-            alert("Failed to save data: " + result.message);
-        }
+        // alert("Personal data saved successfully!");
     };
-    
+
     return (
         <form className="input-main-container" onSubmit={handleSubmit}>
             <div className="input-container-1">
@@ -110,7 +129,6 @@ export default function RegApplication1() {
                     <label className="applicationLabel" htmlFor="LAST_NAME">Last Name<span className="red">*</span></label>
                     <input type="text" name="LAST_NAME" id="LAST_NAME" value={formData.LAST_NAME} onChange={handleChange} required />
                 </div>
-                
             </div>
 
             <div className="input-container-2">
@@ -126,9 +144,9 @@ export default function RegApplication1() {
                     <label className="applicationLabel" htmlFor="SEX">Gender<span className="red">*</span></label>
                     <div id="SEX">
                         <div className="radioDiv">
-                            <input type="radio" name="SEX" id="male" value="Male" onChange={handleChange} required />
+                            <input type="radio" name="SEX" id="male" value="Male" checked={formData.SEX === "Male"} onChange={handleChange} required />
                             <label className="applicationLabel" htmlFor="male">Male</label>
-                            <input type="radio" name="SEX" id="female" value="Female" onChange={handleChange} required />
+                            <input type="radio" name="SEX" id="female" value="Female" checked={formData.SEX === "Female"} onChange={handleChange} required />
                             <label className="applicationLabel" htmlFor="female">Female</label>
                         </div>
                     </div>
@@ -140,21 +158,21 @@ export default function RegApplication1() {
             </div>
 
             <div className="input-container-3">
-                <div className="input-container-3-1">
+            <div className="input-container-3-1">
                     <label className="applicationLabel" htmlFor="CONTACT_NO">Contact Number<span className="red">*</span></label>
                     <input type="text" name="CONTACT_NO" id="CONTACT_NO" value={formData.CONTACT_NO} onChange={handleChange} required />
                 </div>
                 <div className="input-container-3-2">
-                    <label className="applicationLabel" htmlFor="Province">Province<span className="red">*</span></label>
-                    <div>{formData.Province}</div>
+                    <label className="applicationLabel" htmlFor="PROVINCE">Province</label>
+                    <input type="text" name="Province" id="Province" value={formData.Province} readOnly />
                 </div>
                 <div className="input-container-3-3">
-                    <label className="applicationLabel" htmlFor="CITY_MUNICIPALITY">City/Municipality<span className="red">*</span></label>
-                    <div>{formData.CITY_MUNICIPALITY}</div>
+                    <label className="applicationLabel" htmlFor="CITY_MUNICIPALITY">City/Municipality</label>
+                    <input type="text" name="CITY_MUNICIPALITY" id="CITY_MUNICIPALITY" value={formData.CITY_MUNICIPALITY} readOnly />
                 </div>
-                <div className="input-container-3-4">
+                <div className="input-container-3-3">
                     <label className="applicationLabel" htmlFor="BARANGAY">Barangay<span className="red">*</span></label>
-                    <select name="BARANGAY" id="BARANGAY" onChange={handleChange} required>
+                    <select name="BARANGAY" id="BARANGAY" value={formData.BARANGAY} onChange={handleChange} required>
                         <option value="">Select Barangay</option>
                         <option value="Anilao">Anilao</option>
                         <option value="Atlag">Atlag</option>
@@ -210,6 +228,7 @@ export default function RegApplication1() {
                     </select>
                 </div>
             </div>
+    
 
             <div className="input-container-4">
                 <div className="input-container-4-1">
@@ -232,39 +251,43 @@ export default function RegApplication1() {
                     <label className="applicationLabel" htmlFor="RELIGION">Religion<span className="red">*</span></label>
                     <input type="text" name="RELIGION" id="RELIGION" value={formData.RELIGION} onChange={handleChange} required />
                 </div>
-                <div className="input-container-5-3">
-                    <label className="applicationLabel" htmlFor="PWD">PWD?</label>
-                    <div id="PWD">
-                        <input type="radio" name="PWD" id="PWDYes" value="1" onChange={handleChange} required />
-                        <label className="applicationLabel" htmlFor="PWDYes">Yes</label>
-                        <input type="radio" name="PWD" id="PWDNo" value="0" onChange={handleChange} required />
-                        <label className="applicationLabel" htmlFor="PWDNo">No</label>
-                    </div>
-                </div>
-                <div className="input-container-5-4">
-                    <label className="applicationLabel" htmlFor="PWD_ID">PWD ID</label>
-                    <input 
-                        type="file" 
-                        name="PWD_ID" 
-                        id="PWD_ID" 
-                        onChange={handleFileChange} 
-                        onClick={handleFileClick} 
-                        accept=".jpg, .jpeg, .png, .pdf"  // Restrict file types
-                        disabled={formData.PWD === "0"} // Disable if "No" is selected
-                    />
-                    {formData.PWDPreview && (
-                        <div className="file-preview">
-                            {formData.PWD_ID.type === "application/pdf" ? (
-                                <img src="/path-to-your-pdf-icon.png" alt="PDF Icon" className="file-icon" />
-                            ) : (
-                                <img src={formData.PWDPreview} alt="Preview" className="file-icon" />
-                            )}
-                            <p>{formData.PWD_ID.name}</p>
-                        </div>
-                    )}
-                </div>
+            <div className="input-container-5-3">
+                <label className="applicationLabel" htmlFor="PWD">PWD<span className="red">*</span></label>
+                <select
+                    name="PWD"
+                    id="PWD"
+                    value={String(formData.PWD)}  // Ensure formData.PWD is always treated as a string
+                    onChange={(e) => handleChange({ target: { name: 'PWD', value: e.target.value } })} // Update formData.PWD
+                    required
+                >
+                    <option value="" disabled>
+                        Select an option
+                    </option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
 
+    {/* Conditional rendering for PWD ID file upload */}
+    {formData.PWD === "1" && (
+        <div className="input-container-5-2">
+            <label className="applicationLabel" htmlFor="PWD_ID">PWD ID</label>
+            <input
+                type="file"
+                name="PWD_ID"
+                id="PWD_ID"
+                onChange={handleFileChange}
+                required
+            />
+            {formData.PWDPreview && <img src={formData.PWDPreview} alt="PWD ID Preview" />}
+        </div>
+    )}
+</div>
+
+
+           
         </form>
     );
-}
+});
+
+export default RegApplication1;

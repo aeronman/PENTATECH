@@ -2,10 +2,10 @@ import React from "react";
 import "./ApplicationStatus.css";
 
 const steps = [
-  { label: "Application Form", date: "12/22/2023", status: "completed" },
-  { label: "Verification", date: "12/22/2023", status: "completed" },
-  { label: "Interview Scheduled", date: "12/24/2023", status: "completed" },
-  { label: "Interview", date: "12/29/2023", status: "current" },
+  { label: "Application Form", date: "12/22/2023", status: "current" },
+  { label: "Verification", date: "12/22/2023", status: "upcoming" },
+  { label: "Interview Scheduled", date: "12/24/2023", status: "upcoming" },
+  { label: "Interview", date: "12/29/2023", status: "upcoming" },
   { label: "Evaluation", date: "", status: "upcoming" },
   { label: "Result", date: "", status: "upcoming" },
   { label: "Payout", date: "", status: "upcoming" },

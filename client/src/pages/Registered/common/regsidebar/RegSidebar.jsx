@@ -1,9 +1,17 @@
 import React from "react"
 import { Link } from "react-router-dom"
-
 import "./regsidebar.css"
+import { useNavigate } from "react-router-dom"; // Use navigate for programmatic navigation
+
 
 export default function RegSideBar() {
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        localStorage.clear(); // Clear all items from localStorage
+        navigate("/login"); // Redirect to the login page
+    };
+
     return (
         <div className="sidebarDiv">
             <div className="regLogoNameDiv">
@@ -40,10 +48,12 @@ export default function RegSideBar() {
                 </span>
                 <span>
                     <img src="https://res.cloudinary.com/ddiyjqv0u/image/upload/v1724677065/Sign_out_icon_dyfcss.png" alt="" />
-                    <Link className="removeDeco black" to="/login">Sign Out</Link>
+                    <button className="removeDeco black sign-out-button" onClick={handleSignOut}>
+                        Sign Out
+                    </button>
                 </span>
                 <p>ScholarEase @2024</p>
             </div>
         </div>
-    )
+    );
 }
