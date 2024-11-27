@@ -130,12 +130,16 @@ export default function RegApplication1({ moveToForm, formData, setFormData }) {
         ],
     };
     const applyForScholarship = (scholarshipTitle) => {
+
         setFormData((prevFormData) => ({
             ...prevFormData,
             scholarshipProgram: scholarshipTitle,
         }));
+        localStorage.setItem("program_applied",scholarshipTitle);
         moveToForm();
     };
+
+    const isButtonDisabled = localStorage.getItem('status') !== null && localStorage.getItem('status') !== '';
 
     return (
         <div className="scholarship-programs-container">
@@ -150,6 +154,7 @@ export default function RegApplication1({ moveToForm, formData, setFormData }) {
                         <button
                             className="apply-button"
                             onClick={() => applyForScholarship(scholarship.title)}
+                            disabled={isButtonDisabled}
                         >
                             {scholarship.buttonText}
                         </button>

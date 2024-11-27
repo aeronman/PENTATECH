@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import RegSideBar from "../common/regsidebar/RegSidebar";
 import RegProfile from "../common/regprofile/regprofile";
@@ -13,6 +13,8 @@ import RegApplication6 from "./components/RegApplication6";
 import "./RegApplicationForm.css";
 
 export default function RegApplication() {
+    const regFormRef = useRef(null);
+
     const [page, setPage] = useState(0);
 
     const [formData, setFormData] = useState({
@@ -22,7 +24,7 @@ export default function RegApplication() {
         educationStatus: {},
         documents: {}
     });
-
+    
     const formTitles = [
         "Scholarship Programs Available",
         "Personal Information",
@@ -45,19 +47,35 @@ export default function RegApplication() {
         if (page === 0) {
             return <RegApplication1 moveToForm={() => setPage(1)} formData={formData} setFormData={setFormData} />;
         } else if (page === 1) {
-            return <RegApplication2 moveToForm={() => setPage(2)} formData={formData} setFormData={setFormData} />;
+            return <RegApplication2 moveToForm={() => setPage(2)} formData={formData} setFormData={setFormData}  ref={regFormRef}/>;
         } else if (page === 2) {
-            return <RegApplication3 moveToForm={() => setPage(3)} formData={formData} setFormData={setFormData} />;
+            return <RegApplication3 moveToForm={() => setPage(3)} formData={formData} setFormData={setFormData}  ref={regFormRef}/>;
         } else if (page === 3) {
-            return <RegApplication4 moveToForm={() => setPage(4)} formData={formData} setFormData={setFormData} />;
+            return <RegApplication4 moveToForm={() => setPage(4)} formData={formData} setFormData={setFormData}  ref={regFormRef}/>;
         } else if (page === 4) {
-            return <RegApplication5 moveToForm={() => setPage(5)} formData={formData} setFormData={setFormData} />;
+            return <RegApplication5 moveToForm={() => setPage(5)} formData={formData} setFormData={setFormData}  ref={regFormRef}/>;
         } else if (page === 5) {
-            return <RegApplication6 formData={formData} />;
+            return <RegApplication6  formData={formData} setFormData={setFormData}  ref={regFormRef} />;
         }
     };
     
+    const handleNext = (e) => {
+        if (regFormRef.current) {
+            regFormRef.current.handleSubmit(e);
+        }
+        setPage((currPage) => currPage + 1);
+        console.log("submitted");
+    };
 
+    const handleFinalSubmit = (event) => {
+        if (regFormRef.current) {
+            regFormRef.current.handleSubmit(event);
+        } else {
+            console.error("Form reference is not available.");
+        }
+    };
+    
+    
     return (
         <div className="RegApplicationDiv1">
             <div className="RegApplicationDiv1-1">
@@ -81,21 +99,17 @@ export default function RegApplication() {
                         </button>
                     )}
                     {page < 4 && page !== 0 && (
-                        <button
-                            onClick={() => setPage((currPage) => currPage + 1)}
-                        >
-                            Next
+                       <button onClick={handleNext}>
+                       Next
                         </button>
                     )}
                     {page === 4 && (
-                        <button
-                            onClick={() => setPage(5)} // Redirects to RegApplication6
-                        >
-                            Review
-                        </button>
+                         <button onClick={handleNext}>
+                         Review
+                          </button>
                     )}
                     {page === 5 && (
-                        <button onClick={handleSubmit}>Submit</button> // Submit button
+                        <button onClick={handleFinalSubmit}>Submit</button> // Submit button
                     )}
                 </div>
             </div>

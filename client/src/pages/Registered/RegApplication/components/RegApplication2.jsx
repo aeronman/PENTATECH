@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import "./RegApplicationCommon.css";
 
-export default function RegApplication1() {
+const RegApplication1 = forwardRef((props, ref) => {
     const [formData, setFormData] = useState({
         userID: localStorage.getItem("id"),
         Student_ID: "",
@@ -15,64 +16,45 @@ export default function RegApplication1() {
         CITY_MUNICIPALITY: "Malolos",
         BARANGAY: "",
         STREET_ADDRESS: "",
-        SEX: "",  // Default empty string to ensure controlled value
+        SEX: "",
         CIVIL_STATUS: "",
-        PWD: "",  // Default empty string to ensure controlled value
-        RELIGION: "",
+        PWD: "",
+        RELIGION:"",
         CONTACT_NO: "",
         PWD_ID: null,
-        PWDPreview: null // To store the preview image URL
+        PWDPreview: null
     });
 
-    // Fetch existing data based on localStorage ID
+   
+    useImperativeHandle(ref, () => ({
+        handleSubmit,
+    }));
+
+    
     useEffect(() => {
         const storedId = localStorage.getItem("id");
         if (storedId) {
             fetchData(storedId);
         }
     }, []);
-
-    const fetchData = async (id) => {
-        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/get/getPersonalDetails.php`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({ userId: id })
-        });
-
-        const result = await response.json();
-        if (result.success) {
-            const retrievedData = result.data;
-
-            // Ensure all fields have valid values (using default values where necessary)
+    const fetchData = (id) => {
+      
+        const storedData = JSON.parse(localStorage.getItem("personalDetails") || '{}');
+        
+        
+        if (storedData.userID === id) {
             setFormData({
                 ...formData,
-                Student_ID: retrievedData.studentID|| "",
-                FIRST_NAME: retrievedData.firstName || "",
-                MIDDLE_NAME: retrievedData.middleName || "", // Optional field
-                LAST_NAME: retrievedData.lastName || "",
-                DATE_OF_BIRTH: retrievedData.dateOfBirth || "",
-                age: retrievedData.age || "",
-                PLACE_OF_BIRTH: retrievedData.placeOfBirth|| "",
-                Province: retrievedData.province || "Bulacan",
-                CITY_MUNICIPALITY: retrievedData.cityMunicipality || "Malolos",
-                BARANGAY: retrievedData.barangay || "",
-                SEX: retrievedData.sex || "",  // Default empty string if undefined
-                CIVIL_STATUS: retrievedData.civilStatus || "",
-                PWD: retrievedData.pwd || "",  // Default empty string if undefined
-                RELIGION: retrievedData.religion || "",
-                CONTACT_NO: retrievedData.contactNo || "",
-                PWD_ID: retrievedData.pwdID || null,
-                PWDPreview: retrievedData.PWDPreview || null, // Handle file preview
+                ...storedData
             });
         }
     };
 
+
     const validateForm = () => {
         for (let key in formData) {
             if (!formData[key] && key !== 'PWDPreview' && key !== 'PWD_ID') {  // Skip PWD fields from required check
-                alert(`${key} is required!`);
+                // alert(`${key} is required!`);
                 return false;
             }
         }
@@ -112,30 +94,20 @@ export default function RegApplication1() {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        const dataToSend = {
+        const dataToStore = {
             ...formData,
             page: "personalInfo",
             PWD: formData.PWD === "Yes" ? 1 : 0, // Convert "Yes" and "No" to boolean
         };
 
-        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/post/savePersonalDetails.php`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams(dataToSend)
-        });
+        // Save form data to localStorage
+        localStorage.setItem("personalDetails", JSON.stringify(dataToStore));
 
-        const result = await response.json();
-        if (result.success) {
-            alert("Data saved successfully!");
-        } else {
-            alert("Failed to save data: " + result.message);
-        }
+        // alert("Personal data saved successfully!");
     };
 
     return (
@@ -186,40 +158,136 @@ export default function RegApplication1() {
             </div>
 
             <div className="input-container-3">
-                <div className="input-container-3-1">
+            <div className="input-container-3-1">
+                    <label className="applicationLabel" htmlFor="CONTACT_NO">Contact Number<span className="red">*</span></label>
+                    <input type="text" name="CONTACT_NO" id="CONTACT_NO" value={formData.CONTACT_NO} onChange={handleChange} required />
+                </div>
+                <div className="input-container-3-2">
                     <label className="applicationLabel" htmlFor="PROVINCE">Province</label>
                     <input type="text" name="Province" id="Province" value={formData.Province} readOnly />
                 </div>
-                <div className="input-container-3-2">
+                <div className="input-container-3-3">
                     <label className="applicationLabel" htmlFor="CITY_MUNICIPALITY">City/Municipality</label>
                     <input type="text" name="CITY_MUNICIPALITY" id="CITY_MUNICIPALITY" value={formData.CITY_MUNICIPALITY} readOnly />
                 </div>
                 <div className="input-container-3-3">
                     <label className="applicationLabel" htmlFor="BARANGAY">Barangay<span className="red">*</span></label>
-                    <input type="text" name="BARANGAY" id="BARANGAY" value={formData.BARANGAY} onChange={handleChange} required />
+                    <select name="BARANGAY" id="BARANGAY" value={formData.BARANGAY} onChange={handleChange} required>
+                        <option value="">Select Barangay</option>
+                        <option value="Anilao">Anilao</option>
+                        <option value="Atlag">Atlag</option>
+                        <option value="Babatnin">Babatnin</option>
+                        <option value="Bagna">Bagna</option>
+                        <option value="Bagong Bayan">Bagong Bayan</option>
+                        <option value="Balayong">Balayong</option>
+                        <option value="Balite">Balite</option>
+                        <option value="Bangkal">Bangkal</option>
+                        <option value="Barihan">Barihan</option>
+                        <option value="Bulihan">Bulihan</option>
+                        <option value="Bungahan">Bungahan</option>
+                        <option value="Caingin">Caingin</option>
+                        <option value="Calero">Calero</option>
+                        <option value="Caliligawan">Caliligawan</option>
+                        <option value="Canalate">Canalate</option>
+                        <option value="Caniogan">Caniogan</option>
+                        <option value="Catmon">Catmon</option>
+                        <option value="Cofradia">Cofradia</option>
+                        <option value="Dakila">Dakila</option>
+                        <option value="Guinhawa">Guinhawa</option>
+                        <option value="Liang">Liang</option>
+                        <option value="Ligas">Ligas</option>
+                        <option value="Longos">Longos</option>
+                        <option value="Look 1st">Look 1st</option>
+                        <option value="Look 2nd">Look 2nd</option>
+                        <option value="Lugam">Lugam</option>
+                        <option value="Mabolo">Mabolo</option>
+                        <option value="Mambog">Mambog</option>
+                        <option value="Masile">Masile</option>
+                        <option value="Matimbo">Matimbo</option>
+                        <option value="Mojon">Mojon</option>
+                        <option value="Namayan">Namayan</option>
+                        <option value="Niugan">Niugan</option>
+                        <option value="Pamarawan">Pamarawan</option>
+                        <option value="Panasahan">Panasahan</option>
+                        <option value="Pinagbakahan">Pinagbakahan</option>
+                        <option value="San Agustin">San Agustin</option>
+                        <option value="San Gabriel">San Gabriel</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Pablo">San Pablo</option>
+                        <option value="Santiago">Santiago</option>
+                        <option value="Santisima Trinidad">Santisima Trinidad</option>
+                        <option value="Santo Cristo">Santo Cristo</option>
+                        <option value="Santo Niño">Santo Niño</option>
+                        <option value="Santor">Santor</option>
+                        <option value="Santo Rosario">Santo Rosario</option>
+                        <option value="San Vicente">San Vicente</option>
+                        <option value="Sumapang Bata">Sumapang Bata</option>
+                        <option value="Sumapang Matanda">Sumapang Matanda</option>
+                        <option value="Taal">Taal</option>
+                        <option value="Tikay">Tikay</option>
+                    </select>
                 </div>
             </div>
+    
 
             <div className="input-container-4">
                 <div className="input-container-4-1">
-                    <label className="applicationLabel" htmlFor="PWD">PWD<span className="red">*</span></label>
-                    <select name="PWD" id="PWD" value={formData.PWD} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <label className="applicationLabel" htmlFor="STREET_ADDRESS">Street Address<span className="red">*</span></label>
+                        <input type="text" name="STREET_ADDRESS" id="STREET_ADDRESS" value={formData.STREET_ADDRESS} onChange={handleChange} required />
+                </div>
+            </div>
+            <div className="input-container-5">
+                <div className="input-container-5-1">
+                    <label className="applicationLabel" htmlFor="CIVIL_STATUS">Civil Status<span className="red">*</span></label>
+                    <select name="CIVIL_STATUS" id="CIVIL_STATUS" onChange={handleChange} required>
+                        <option value="">Select Civil Status</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Legally Separated">Legally Separated</option>
                     </select>
                 </div>
-
-                {formData.PWD === "Yes" && (
-                    <div className="input-container-4-2">
-                        <label className="applicationLabel" htmlFor="PWD_ID">PWD ID</label>
-                        <input type="file" name="PWD_ID" id="PWD_ID" onChange={handleFileChange} />
-                        {formData.PWDPreview && <img src={formData.PWDPreview} alt="PWD ID Preview" />}
-                    </div>
-                )}
+                <div className="input-container-5-2">
+                    <label className="applicationLabel" htmlFor="RELIGION">Religion<span className="red">*</span></label>
+                    <input type="text" name="RELIGION" id="RELIGION" value={formData.RELIGION} onChange={handleChange} required />
+                </div>
+            <div className="input-container-5-3">
+                <label className="applicationLabel" htmlFor="PWD">PWD<span className="red">*</span></label>
+                <select
+                    name="PWD"
+                    id="PWD"
+                    value={String(formData.PWD)}  // Ensure formData.PWD is always treated as a string
+                    onChange={(e) => handleChange({ target: { name: 'PWD', value: e.target.value } })} // Update formData.PWD
+                    required
+                >
+                    <option value="" disabled>
+                        Select an option
+                    </option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
 
-            <button type="submit">Submit</button>
+    {/* Conditional rendering for PWD ID file upload */}
+    {formData.PWD === "1" && (
+        <div className="input-container-5-2">
+            <label className="applicationLabel" htmlFor="PWD_ID">PWD ID</label>
+            <input
+                type="file"
+                name="PWD_ID"
+                id="PWD_ID"
+                onChange={handleFileChange}
+                required
+            />
+            {formData.PWDPreview && <img src={formData.PWDPreview} alt="PWD ID Preview" />}
+        </div>
+    )}
+</div>
+
+
+           
         </form>
     );
-}
+});
+
+export default RegApplication1;

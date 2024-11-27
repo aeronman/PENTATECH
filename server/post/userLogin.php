@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     "UserID" => $user['UserID'],
                     "Username" => $user['Username'],
                     "UserType" => $user['UserType'],
-                    "Email" => $user['Email']
+                    "Email" => $user['Email'],
+                    "Status" => $user['application_status']
                 ];
 
                 echo json_encode([
