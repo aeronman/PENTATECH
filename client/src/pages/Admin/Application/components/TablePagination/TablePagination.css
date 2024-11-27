@@ -1,0 +1,28 @@
+.PaginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 450px;
+}
+
+.PaginationButton {
+    background-color: #b72a37;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.PaginationButton:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.PaginationText {
+    font-size: 14px;
+    color: #555;
+}

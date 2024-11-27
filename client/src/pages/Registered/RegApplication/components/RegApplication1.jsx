@@ -83,20 +83,50 @@ export default function RegApplication1({ moveToForm, formData, setFormData }) {
         }
     ];
 
+    const CustomPrevArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className="custom-arrow custom-prev" onClick={onClick}>
+                <span>&lt;</span>
+            </div>
+        );
+    };
+
+    const CustomNextArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className="custom-arrow custom-next" onClick={onClick}>
+                <span>&gt;</span>
+            </div>
+        );
+    };
+
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
+        centerMode: true,  // This makes the center card effect work
+        centerPadding: "0px",  // Removes padding around the center card
         autoplay: false,
         prevArrow: <button className="slick-prev">←</button>,
         nextArrow: <button className="slick-next">→</button>,
         centerMode: true, 
         focusOnSelect: false, // Disable selecting slides when clicking
         responsive: [
-            { breakpoint: 1024, settings: { slidesToShow: 2 } },
-            { breakpoint: 600, settings: { slidesToShow: 1 } },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
         ],
     };
     const applyForScholarship = (scholarshipTitle) => {

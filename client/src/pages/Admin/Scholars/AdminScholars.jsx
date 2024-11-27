@@ -123,9 +123,6 @@ return (
             </button>
           </div>
         </div>
-        <div className="date-container">
-          <span className="date">April 27, 2024<br /><small>4:00 pm</small></span>
-        </div>
       </div>
         <table>
           <thead>

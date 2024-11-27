@@ -15,30 +15,29 @@ import "./RegApplicationForm.css";
 export default function RegApplication() {
     const [page, setPage] = useState(0);
 
-    // Add form data state here
     const [formData, setFormData] = useState({
         scholarshipProgram: "",
         personalInfo: {},
         familyInfo: {},
         educationStatus: {},
-        documents: {} // Use an object to store document file data
+        documents: {}
     });
 
     const formTitles = [
-        "Scholarship Programs Available", 
-        "Personal Information", 
-        "Family Information", 
-        "Education Status", 
-        "Documents", 
+        "Scholarship Programs Available",
+        "Personal Information",
+        "Family Information",
+        "Education Status",
+        "Documents",
         "Review"
     ];
 
     const formTitleDetails = [
-        "Choose one and proceed.", 
-        "Make sure to answer items marked with * and read each items and answers you input carefully.", 
-        "Make sure to answer items marked with * and read each items and answers you input carefully.", 
-        "Make sure to answer items marked with * and read each items and answers you input carefully.", 
-        "Make sure to answer items marked with * and read each items and answers you input carefully. Please submit a clear picture, scanned copy, or pdf file. Each form accepts multiple files if necessary.", 
+        "Choose one and proceed.",
+        "Make sure to answer items marked with * and read each items and answers you input carefully.",
+        "Make sure to answer items marked with * and read each items and answers you input carefully.",
+        "Make sure to answer items marked with * and read each items and answers you input carefully.",
+        "Make sure to answer items marked with * and read each items and answers you input carefully. Please submit a clear picture, scanned copy, or pdf file. Each form accepts multiple files if necessary.",
         "Please make sure that all of the information you input is correct."
     ];
 
@@ -74,24 +73,31 @@ export default function RegApplication() {
                     <div className="body">{pageDisplay()}</div>
                 </div>
                 <div className="footerButton">
-                    {page !== 0 && page !== 5 && (
+                    {page > 0 && (
                         <button
-                            disabled={page === 0}
-                            onClick={() => { setPage((currPage) => currPage - 1) }}
+                            onClick={() => setPage((currPage) => currPage - 1)}
                         >
-                            prev
+                            Prev
                         </button>
                     )}
-                    {page !== 0 && page !== 5 && (
+                    {page < 4 && page !== 0 && (
                         <button
-                            disabled={page === formTitles.length - 1}
-                            onClick={() => { setPage((currPage) => currPage + 1) }}
+                            onClick={() => setPage((currPage) => currPage + 1)}
                         >
-                            next
+                            Next
                         </button>
+                    )}
+                    {page === 4 && (
+                        <button
+                            onClick={() => setPage(5)} // Redirects to RegApplication6
+                        >
+                            Review
+                        </button>
+                    )}
+                    {page === 5 && (
+                        <button onClick={handleSubmit}>Submit</button> // Submit button
                     )}
                 </div>
-
             </div>
         </div>
     );
