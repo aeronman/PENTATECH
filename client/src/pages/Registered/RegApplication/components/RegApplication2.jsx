@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegApplicationCommon.css";
 
 export default function RegApplication1() {
     const [formData, setFormData] = useState({
+        userID: localStorage.getItem("id"),
         Student_ID: "",
-        FIRST_NAME: "", 
+        FIRST_NAME: "",
         MIDDLE_NAME: "",  // Optional field
-        LAST_NAME: "", 
+        LAST_NAME: "",
         DATE_OF_BIRTH: "",
         age: "",
         PLACE_OF_BIRTH: "",
@@ -14,13 +15,69 @@ export default function RegApplication1() {
         CITY_MUNICIPALITY: "Malolos",
         BARANGAY: "",
         STREET_ADDRESS: "",
-        SEX: "",
+        SEX: "",  // Default empty string to ensure controlled value
         CIVIL_STATUS: "",
-        PWD: "",
+        PWD: "",  // Default empty string to ensure controlled value
         RELIGION: "",
         CONTACT_NO: "",
-        hobbies: ""
+        PWD_ID: null,
+        PWDPreview: null // To store the preview image URL
     });
+
+    // Fetch existing data based on localStorage ID
+    useEffect(() => {
+        const storedId = localStorage.getItem("id");
+        if (storedId) {
+            fetchData(storedId);
+        }
+    }, []);
+
+    const fetchData = async (id) => {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/get/getPersonalDetails.php`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ userId: id })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            const retrievedData = result.data;
+
+            // Ensure all fields have valid values (using default values where necessary)
+            setFormData({
+                ...formData,
+                Student_ID: retrievedData.studentID|| "",
+                FIRST_NAME: retrievedData.firstName || "",
+                MIDDLE_NAME: retrievedData.middleName || "", // Optional field
+                LAST_NAME: retrievedData.lastName || "",
+                DATE_OF_BIRTH: retrievedData.dateOfBirth || "",
+                age: retrievedData.age || "",
+                PLACE_OF_BIRTH: retrievedData.placeOfBirth|| "",
+                Province: retrievedData.province || "Bulacan",
+                CITY_MUNICIPALITY: retrievedData.cityMunicipality || "Malolos",
+                BARANGAY: retrievedData.barangay || "",
+                SEX: retrievedData.sex || "",  // Default empty string if undefined
+                CIVIL_STATUS: retrievedData.civilStatus || "",
+                PWD: retrievedData.pwd || "",  // Default empty string if undefined
+                RELIGION: retrievedData.religion || "",
+                CONTACT_NO: retrievedData.contactNo || "",
+                PWD_ID: retrievedData.pwdID || null,
+                PWDPreview: retrievedData.PWDPreview || null, // Handle file preview
+            });
+        }
+    };
+
+    const validateForm = () => {
+        for (let key in formData) {
+            if (!formData[key] && key !== 'PWDPreview' && key !== 'PWD_ID') {  // Skip PWD fields from required check
+                alert(`${key} is required!`);
+                return false;
+            }
+        }
+        return true;
+    };
 
     const calculateAge = (dob) => {
         const birthDate = new Date(dob);
@@ -39,11 +96,6 @@ export default function RegApplication1() {
         if (name === "DATE_OF_BIRTH") {
             const age = calculateAge(value);
             setFormData({ ...formData, [name]: value, age: age.toString() });
-        } else if (name === "PWD") {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
         } else {
             setFormData({ ...formData, [name]: value });
         }
@@ -52,30 +104,25 @@ export default function RegApplication1() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData({ 
-                ...formData, 
+            setFormData({
+                ...formData,
                 PWD_ID: file,
-                PWDPreview: URL.createObjectURL(file)  // Generate preview URL
+                PWDPreview: URL.createObjectURL(file), // Generate preview URL for the file
             });
-        }
-    };
-
-    const handleFileClick = () => {
-        if (formData.PWD === "0") {
-            alert("You cannot upload a PWD ID file because you selected 'No' for PWD.");
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
 
         const dataToSend = {
             ...formData,
             page: "personalInfo",
-            PWD: formData.PWD === "Yes" ? 1 : 0  // Convert "Yes" and "No" to boolean
+            PWD: formData.PWD === "Yes" ? 1 : 0, // Convert "Yes" and "No" to boolean
         };
 
-        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/post/saveFormData.php`, {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/post/savePersonalDetails.php`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -90,7 +137,7 @@ export default function RegApplication1() {
             alert("Failed to save data: " + result.message);
         }
     };
-    
+
     return (
         <form className="input-main-container" onSubmit={handleSubmit}>
             <div className="input-container-1">
@@ -110,7 +157,6 @@ export default function RegApplication1() {
                     <label className="applicationLabel" htmlFor="LAST_NAME">Last Name<span className="red">*</span></label>
                     <input type="text" name="LAST_NAME" id="LAST_NAME" value={formData.LAST_NAME} onChange={handleChange} required />
                 </div>
-                
             </div>
 
             <div className="input-container-2">
@@ -126,9 +172,9 @@ export default function RegApplication1() {
                     <label className="applicationLabel" htmlFor="SEX">Gender<span className="red">*</span></label>
                     <div id="SEX">
                         <div className="radioDiv">
-                            <input type="radio" name="SEX" id="male" value="Male" onChange={handleChange} required />
+                            <input type="radio" name="SEX" id="male" value="Male" checked={formData.SEX === "Male"} onChange={handleChange} required />
                             <label className="applicationLabel" htmlFor="male">Male</label>
-                            <input type="radio" name="SEX" id="female" value="Female" onChange={handleChange} required />
+                            <input type="radio" name="SEX" id="female" value="Female" checked={formData.SEX === "Female"} onChange={handleChange} required />
                             <label className="applicationLabel" htmlFor="female">Female</label>
                         </div>
                     </div>
@@ -141,130 +187,39 @@ export default function RegApplication1() {
 
             <div className="input-container-3">
                 <div className="input-container-3-1">
-                    <label className="applicationLabel" htmlFor="CONTACT_NO">Contact Number<span className="red">*</span></label>
-                    <input type="text" name="CONTACT_NO" id="CONTACT_NO" value={formData.CONTACT_NO} onChange={handleChange} required />
+                    <label className="applicationLabel" htmlFor="PROVINCE">Province</label>
+                    <input type="text" name="Province" id="Province" value={formData.Province} readOnly />
                 </div>
                 <div className="input-container-3-2">
-                    <label className="applicationLabel" htmlFor="Province">Province<span className="red">*</span></label>
-                    <div>{formData.Province}</div>
+                    <label className="applicationLabel" htmlFor="CITY_MUNICIPALITY">City/Municipality</label>
+                    <input type="text" name="CITY_MUNICIPALITY" id="CITY_MUNICIPALITY" value={formData.CITY_MUNICIPALITY} readOnly />
                 </div>
                 <div className="input-container-3-3">
-                    <label className="applicationLabel" htmlFor="CITY_MUNICIPALITY">City/Municipality<span className="red">*</span></label>
-                    <div>{formData.CITY_MUNICIPALITY}</div>
-                </div>
-                <div className="input-container-3-4">
                     <label className="applicationLabel" htmlFor="BARANGAY">Barangay<span className="red">*</span></label>
-                    <select name="BARANGAY" id="BARANGAY" onChange={handleChange} required>
-                        <option value="">Select Barangay</option>
-                        <option value="Anilao">Anilao</option>
-                        <option value="Atlag">Atlag</option>
-                        <option value="Babatnin">Babatnin</option>
-                        <option value="Bagna">Bagna</option>
-                        <option value="Bagong Bayan">Bagong Bayan</option>
-                        <option value="Balayong">Balayong</option>
-                        <option value="Balite">Balite</option>
-                        <option value="Bangkal">Bangkal</option>
-                        <option value="Barihan">Barihan</option>
-                        <option value="Bulihan">Bulihan</option>
-                        <option value="Bungahan">Bungahan</option>
-                        <option value="Caingin">Caingin</option>
-                        <option value="Calero">Calero</option>
-                        <option value="Caliligawan">Caliligawan</option>
-                        <option value="Canalate">Canalate</option>
-                        <option value="Caniogan">Caniogan</option>
-                        <option value="Catmon">Catmon</option>
-                        <option value="Cofradia">Cofradia</option>
-                        <option value="Dakila">Dakila</option>
-                        <option value="Guinhawa">Guinhawa</option>
-                        <option value="Liang">Liang</option>
-                        <option value="Ligas">Ligas</option>
-                        <option value="Longos">Longos</option>
-                        <option value="Look 1st">Look 1st</option>
-                        <option value="Look 2nd">Look 2nd</option>
-                        <option value="Lugam">Lugam</option>
-                        <option value="Mabolo">Mabolo</option>
-                        <option value="Mambog">Mambog</option>
-                        <option value="Masile">Masile</option>
-                        <option value="Matimbo">Matimbo</option>
-                        <option value="Mojon">Mojon</option>
-                        <option value="Namayan">Namayan</option>
-                        <option value="Niugan">Niugan</option>
-                        <option value="Pamarawan">Pamarawan</option>
-                        <option value="Panasahan">Panasahan</option>
-                        <option value="Pinagbakahan">Pinagbakahan</option>
-                        <option value="San Agustin">San Agustin</option>
-                        <option value="San Gabriel">San Gabriel</option>
-                        <option value="San Juan">San Juan</option>
-                        <option value="San Pablo">San Pablo</option>
-                        <option value="Santiago">Santiago</option>
-                        <option value="Santisima Trinidad">Santisima Trinidad</option>
-                        <option value="Santo Cristo">Santo Cristo</option>
-                        <option value="Santo Niño">Santo Niño</option>
-                        <option value="Santor">Santor</option>
-                        <option value="Santo Rosario">Santo Rosario</option>
-                        <option value="San Vicente">San Vicente</option>
-                        <option value="Sumapang Bata">Sumapang Bata</option>
-                        <option value="Sumapang Matanda">Sumapang Matanda</option>
-                        <option value="Taal">Taal</option>
-                        <option value="Tikay">Tikay</option>
-                    </select>
+                    <input type="text" name="BARANGAY" id="BARANGAY" value={formData.BARANGAY} onChange={handleChange} required />
                 </div>
             </div>
 
             <div className="input-container-4">
                 <div className="input-container-4-1">
-                        <label className="applicationLabel" htmlFor="STREET_ADDRESS">Street Address<span className="red">*</span></label>
-                        <input type="text" name="STREET_ADDRESS" id="STREET_ADDRESS" value={formData.STREET_ADDRESS} onChange={handleChange} required />
-                </div>
-            </div>
-            <div className="input-container-5">
-                <div className="input-container-5-1">
-                    <label className="applicationLabel" htmlFor="CIVIL_STATUS">Civil Status<span className="red">*</span></label>
-                    <select name="CIVIL_STATUS" id="CIVIL_STATUS" onChange={handleChange} required>
-                        <option value="">Select Civil Status</option>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
-                        <option value="Widowed">Widowed</option>
-                        <option value="Legally Separated">Legally Separated</option>
+                    <label className="applicationLabel" htmlFor="PWD">PWD<span className="red">*</span></label>
+                    <select name="PWD" id="PWD" value={formData.PWD} onChange={handleChange} required>
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
                     </select>
                 </div>
-                <div className="input-container-5-2">
-                    <label className="applicationLabel" htmlFor="RELIGION">Religion<span className="red">*</span></label>
-                    <input type="text" name="RELIGION" id="RELIGION" value={formData.RELIGION} onChange={handleChange} required />
-                </div>
-                <div className="input-container-5-3">
-                    <label className="applicationLabel" htmlFor="PWD">PWD?</label>
-                    <div id="PWD">
-                        <input type="radio" name="PWD" id="PWDYes" value="1" onChange={handleChange} required />
-                        <label className="applicationLabel" htmlFor="PWDYes">Yes</label>
-                        <input type="radio" name="PWD" id="PWDNo" value="0" onChange={handleChange} required />
-                        <label className="applicationLabel" htmlFor="PWDNo">No</label>
+
+                {formData.PWD === "Yes" && (
+                    <div className="input-container-4-2">
+                        <label className="applicationLabel" htmlFor="PWD_ID">PWD ID</label>
+                        <input type="file" name="PWD_ID" id="PWD_ID" onChange={handleFileChange} />
+                        {formData.PWDPreview && <img src={formData.PWDPreview} alt="PWD ID Preview" />}
                     </div>
-                </div>
-                <div className="input-container-5-4">
-                    <label className="applicationLabel" htmlFor="PWD_ID">PWD ID</label>
-                    <input 
-                        type="file" 
-                        name="PWD_ID" 
-                        id="PWD_ID" 
-                        onChange={handleFileChange} 
-                        onClick={handleFileClick} 
-                        accept=".jpg, .jpeg, .png, .pdf"  // Restrict file types
-                        disabled={formData.PWD === "0"} // Disable if "No" is selected
-                    />
-                    {formData.PWDPreview && (
-                        <div className="file-preview">
-                            {formData.PWD_ID.type === "application/pdf" ? (
-                                <img src="/path-to-your-pdf-icon.png" alt="PDF Icon" className="file-icon" />
-                            ) : (
-                                <img src={formData.PWDPreview} alt="Preview" className="file-icon" />
-                            )}
-                            <p>{formData.PWD_ID.name}</p>
-                        </div>
-                    )}
-                </div>
+                )}
             </div>
 
+            <button type="submit">Submit</button>
         </form>
     );
 }

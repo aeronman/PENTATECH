@@ -170,3 +170,22 @@
     height: 40px;
     margin-right: 1vh;
 }
+.save-button-container {
+    text-align: center; /* Center the button */
+    margin-top: 20px; /* Add some spacing above the button */
+}
+
+.save-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.save-button:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
+

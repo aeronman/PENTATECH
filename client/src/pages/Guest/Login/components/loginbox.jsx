@@ -40,9 +40,10 @@ export default function LoginBox() {
             );
 
             if (response.data.message === "Login successful.") {
-                const { Username, UserType, Email } = response.data.user;
+                const { UserID, Username, UserType, Email } = response.data.user;
 
                 // Storing user data in localStorage
+                localStorage.setItem("id",UserID);
                 localStorage.setItem("fullname", Username); // Changed to 'fullname'
                 localStorage.setItem("usertype", UserType);
                 localStorage.setItem("email", Email);

@@ -44,24 +44,20 @@ export default function RegApplication() {
 
     const pageDisplay = () => {
         if (page === 0) {
-            return <RegApplication1 formData={formData} setFormData={setFormData} />;
-        }
-        else if (page === 1) {
-            return <RegApplication2 formData={formData} setFormData={setFormData} />;
-        }
-        else if (page === 2) {
-            return <RegApplication3 formData={formData} setFormData={setFormData} />;
-        }
-        else if (page === 3) {
-            return <RegApplication4 formData={formData} setFormData={setFormData} />;
-        }
-        else if (page === 4) {
-            return <RegApplication5 formData={formData} setFormData={setFormData} />;
-        }
-        else if (page === 5) {
+            return <RegApplication1 moveToForm={() => setPage(1)} formData={formData} setFormData={setFormData} />;
+        } else if (page === 1) {
+            return <RegApplication2 moveToForm={() => setPage(2)} formData={formData} setFormData={setFormData} />;
+        } else if (page === 2) {
+            return <RegApplication3 moveToForm={() => setPage(3)} formData={formData} setFormData={setFormData} />;
+        } else if (page === 3) {
+            return <RegApplication4 moveToForm={() => setPage(4)} formData={formData} setFormData={setFormData} />;
+        } else if (page === 4) {
+            return <RegApplication5 moveToForm={() => setPage(5)} formData={formData} setFormData={setFormData} />;
+        } else if (page === 5) {
             return <RegApplication6 formData={formData} />;
         }
     };
+    
 
     return (
         <div className="RegApplicationDiv1">

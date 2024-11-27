@@ -4,7 +4,7 @@ import './RegApplication1.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function RegApplication1() {
+export default function RegApplication1({ moveToForm, formData, setFormData }) {
     const scholarshipData = [
         { 
             title: "AVSP at ABOSP", 
@@ -93,11 +93,18 @@ export default function RegApplication1() {
         prevArrow: <button className="slick-prev">←</button>,
         nextArrow: <button className="slick-next">→</button>,
         centerMode: true, 
-        focusOnSelect: true,
+        focusOnSelect: false, // Disable selecting slides when clicking
         responsive: [
             { breakpoint: 1024, settings: { slidesToShow: 2 } },
             { breakpoint: 600, settings: { slidesToShow: 1 } },
         ],
+    };
+    const applyForScholarship = (scholarshipTitle) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            scholarshipProgram: scholarshipTitle,
+        }));
+        moveToForm();
     };
 
     return (
@@ -110,7 +117,14 @@ export default function RegApplication1() {
                             <a>{scholarship.subtitle}</a>
                         </div>
                         <p>{scholarship.description}</p>
-                        <button className="apply-button">{scholarship.buttonText}</button>
+                        <button
+                            className="apply-button"
+                            onClick={() => applyForScholarship(scholarship.title)}
+                        >
+                            {scholarship.buttonText}
+                        </button>
+                  
+
                     </div>
                 ))}
             </Slider>
