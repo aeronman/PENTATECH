@@ -5,11 +5,11 @@ import "./RegProfile.css";
 
 export default function RegStatus() {
     return (
-        <div className="RegStatusDiv1">
-            <div className="RegStatusDiv1-1">
+        <div className="RegProfileDiv1">
+            <div className="RegProfileDiv1-1">
                 <RegSideBar />
             </div>
-            <div className="RegStatusDiv1-2">
+            <div className="RegProfileDiv1-2">
                 <RegProfile /> 
             </div>
             

@@ -8,17 +8,21 @@
 /* Sidebar Section */
 .AdminApplicationDiv1-1 {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 15%;
     height: 100vh;
     width: 15%;
 }
 
 /* Main Content Section */
 .AdminApplicationDiv1-2 {
-    margin-left: 370px; /* Leave space for the sidebar */
+    margin-left: 15%;
     flex-grow: 1;
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
+    width: 85%;
 }
 
 /* Profile Section */
@@ -41,7 +45,7 @@
     border-radius: 15px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, .5);
     padding: 1% 3%;
-    overflow-y: auto; /* Make the content scrollable */
+    overflow-y: hidden;
 }
 
 /* Content Container */
@@ -79,13 +83,17 @@
 
 /* Applicant Table Section */
 .AdminApplicationTableContainer {
-    max-height: 400px; /* Constrain table height for scrollability */
-    overflow-y: auto;
+    min-height: 500px;
+    height: auto;
+    overflow: hidden;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #fff;
-    padding: 10px; /* Add padding inside the table container */
+    padding: 10px;
+    margin-top: 20px; /* Adds spacing above the table */
 }
+
+
 
 /* Pagination Section */
 .AdminApplicationPagination {

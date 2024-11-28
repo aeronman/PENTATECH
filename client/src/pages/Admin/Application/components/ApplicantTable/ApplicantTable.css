@@ -1,11 +1,12 @@
 .TableContainer {
-    flex: 1;
-    overflow-y: auto;
-    height: auto;  /* Adjust this value based on your requirement */
+    min-height: 500px; /* Ensures the table has a minimum height */
+    max-height: 700px; /* Optional: to avoid excessively tall tables */
+    overflow-y: auto; /* Enables vertical scrolling when content exceeds height */
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     background-color: white;
 }
+
 
 .ApplicantTable {
     width: 100%;
