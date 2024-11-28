@@ -31,6 +31,7 @@ import AdminProfile from "./pages/Admin/Profile/AdminProfile";
 
 
 import "./App.css";
+import { Chatbot } from "./components/Chatbot";
 
 export default function App() {
   useEffect(() => {
@@ -46,6 +47,9 @@ export default function App() {
 
   return (
     <div>
+      {/* Chatbot */}
+      <Chatbot/>
+      
       <Routes>
         {/* Guest Routes */}
         <Route path="/" element={<HomePage />} />
