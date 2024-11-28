@@ -4,6 +4,9 @@ import { Routes, Route } from "react-router-dom";
 // Utility for GAPI Client Initialization
 import { initializeGapiClient } from "./utils/googleCalendarUtils";
 
+// For Chatbot
+import PageWithChatbot from "./components/PageWithChatbot";
+
 // Guest Pages
 import HomePage from "./pages/Guest/Homepage/Homepage";
 import SignUp from "./pages/Guest/Sign-Up/SignUp";
@@ -43,7 +46,6 @@ import SuperAdminProfile from "./pages/SuperAdmin/Profile/SuperAdminProfile";
 import SuperAdminAdmins from "./pages/SuperAdmin/Admin/Admins";
 
 import "./App.css";
-import { Chatbot } from "./components/Chatbot";
 
 export default function App() {
   useEffect(() => {
@@ -59,24 +61,26 @@ export default function App() {
 
   return (
     <div>
-      {/* Chatbot */}
-      <Chatbot/>
       
       <Routes>
         {/* Guest Routes */}
+        <Route element={<PageWithChatbot />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        </Route>
 
         {/* Registered User Routes */}
+        <Route element={<PageWithChatbot />}>
         <Route path="/regDashboard" element={<RegHome />} />
         <Route path="/regFAQs" element={<RegFAQs />} />
         <Route path="/regFeedbacks" element={<RegFeedbacks />} />
         <Route path="/regApplication" element={<RegApplication1 />} />
         <Route path="/regStatus" element={<RegStatus />} />
         <Route path="/regProfile" element={<RegProfile />} />
-
+        </Route>
+        
         {/* Admin Routes */}
         <Route path="/Admin/Dashboard" element={<AdminDashboard />} />
         <Route path="/Admin/Application" element={<AdminApplication />} />
@@ -112,7 +116,6 @@ export default function App() {
         <Route path="/SuperAdmin/Status" element={<SuperAdminStatus />} />
         <Route path="/SuperAdmin/Profile" element={<SuperAdminProfile />} />
         <Route path="/SuperAdmin/Admins" element={<SuperAdminAdmins/>} />
-
       </Routes>
     </div>
   );
