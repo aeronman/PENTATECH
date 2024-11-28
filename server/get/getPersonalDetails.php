@@ -3,8 +3,7 @@
 require_once "../config/connection.php";
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userID = $_POST['userId'];
+
 
 
     $userID = isset($_GET['userID']) ? $_GET['userID'] : null;
