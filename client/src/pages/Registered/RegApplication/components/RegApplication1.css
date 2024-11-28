@@ -3,7 +3,6 @@
     margin: auto;
     display: flex;
     justify-content: center;
-    background-image: url('/Application.jpg');
     background-size: cover; /* Ensures the image covers the entire container */
     background-position: center; /* Centers the background image */
     background-attachment: fixed; /* Keeps the background fixed when scrolling */
@@ -19,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #fce4ec;
+    background: white;
     z-index: 0; /* Ensures it stays behind the cards and navigation buttons */
 }
 
@@ -32,8 +31,8 @@
 }
 
 /* Centering and Adjusting Card Layout */
-.scholarship-card {
-    background: rgba(255, 255, 255, 0.7); /* White background with 70% opacity */
+.scholarship-card { 
+    background: linear-gradient(to bottom, #FED5D5, #FFFFFF);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
@@ -80,6 +79,7 @@
 .apply-button:hover {
     background-color: #c9302c;
     transform: scale(1.05);
+    color: white;
 }
 
 /* Apply scaling effect to the center card */
@@ -105,6 +105,24 @@
     z-index: 1000;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.slick-prev, .slick-next {
+    border-radius: 130px !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    position: absolute !important;
+    top: 50% !important;
+    display: block !important;
+    width: 40px !important;  /* Increase width */
+    height: 40px !important;  /* Increase height */
+    padding: 0 !important;
+    transform: translate(0, -50%) !important;
+    cursor: pointer !important;
+    color: white !important;
+    background: #B22F2F !important;  /* Set your background color */
+    border: none !important;  /* Ensure no border */
+}
+
 
 .custom-arrow span {
     font-size: 24px;

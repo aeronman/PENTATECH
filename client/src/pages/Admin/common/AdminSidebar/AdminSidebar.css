@@ -4,15 +4,14 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    box-shadow: 5px 0px 8px rgba(0, 0, 0, .5);
+    box-shadow: 5px 0px 8px rgba(0, 0, 0, 0.5);
 }
-
 
 .AdminLogoNameDiv {
     display: flex;
     align-items: center;
     gap: 5%;
-    font-size: .7rem;
+    font-size: 0.7rem;
     padding: 20% 10%;
     color: #7D0A0A;
 }
@@ -24,7 +23,7 @@
     gap: 1.5vh;
 }
 
-.AdminListDiv>span {
+.AdminListDiv > span {
     display: flex;
     padding-left: 5vh;
     border-radius: 12px;
@@ -35,38 +34,47 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.AdminListDiv>span:hover {
-    background-color: #B22F2F; /* Highlight color on hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+/* Icon Color */
+.AdminListDiv > span > svg {
+    color: #B22F2F; /* Icon default color */
+    transition: color 0.3s;
 }
 
-.AdminListDiv>span>img {
-    width: 15px;
-}
-
-.AdminListDiv>span a {
-    color: black;
+/* Text Color */
+.AdminListDiv > span a {
+    color: black; /* Text color */
     text-decoration: none;
     transition: color 0.3s;
 }
 
-.AdminListDiv>span:hover a {
-    color: white; /* Change link color to white on hover */
+/* Hover Effects */
+.AdminListDiv > span:hover {
+    background-color: #B22F2F; /* Highlight color on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.AdminListDiv > span:hover > svg {
+    color: white; /* Icon color on hover */
+}
+
+.AdminListDiv > span:hover a {
+    color: white; /* Text color on hover */
 }
 
 .AdminListDiv2 {
-    margin-top: 90%;
+    margin-top: auto;  /* Push this section to the bottom */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0vh;
+    padding-bottom: 20px;  /* Adjust space at the bottom if needed */
 }
 
-.AdminListDiv2>hr {
+.AdminListDiv2 > hr {
     width: 25vh;
 }
 
-.AdminListDiv2>span {
+.AdminListDiv2 > span {
     display: flex;
     padding-left: 5vh;
     border-radius: 12px;
@@ -77,39 +85,63 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.AdminListDiv2>span:hover {
-    background-color: #B22F2F; /* Highlight color on hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+/* Icon Color for AdminListDiv2 */
+.AdminListDiv2 > span > svg {
+    color: #B22F2F; /* Icon default color */
+    transition: color 0.3s;
 }
 
-.AdminListDiv2>span>img {
-    width: 15px;
-}
-
-.AdminListDiv2>span a {
-    color: black;
+/* Text Color for AdminListDiv2 */
+.AdminListDiv2 > span a {
+    color: black; /* Text color */
     text-decoration: none;
     transition: color 0.3s;
 }
 
-.AdminListDiv2>span:hover a {
-    color: white; /* Change link color to white on hover */
+/* Hover Effects for AdminListDiv2 */
+.AdminListDiv2 > span:hover {
+    background-color: #B22F2F; /* Highlight color on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-.AdminListDiv>span.active {
-    background-color: #B22F2F; /* Keep background color after click */
+.AdminListDiv2 > span:hover > svg {
+    color: white; /* Icon color on hover */
 }
 
-.AdminListDiv>span.active img {
-    filter: brightness(0) invert(1); /* Keep the icon white after click */
+.AdminListDiv2 > span:hover a {
+    color: white; /* Text color on hover */
 }
 
-.main-content {
-    flex-grow: 1; /* Main content takes up the remaining space */
-    padding: 20px;
-  }
+.AdminListDiv span.active {
+    background-color: #B22F2F; /* Background color for the active item */
+    color: white; /* Text color when active */
+}
 
-  .scholar-page {
-    display: flex;
-  }
-  
+.AdminListDiv span.active a {
+    color: white; /* Change link color to white when active */
+}
+
+.AdminListDiv span.active svg {
+    fill: white; /* Change icon color to white when active */
+}
+
+.AdminListDiv2 span.active {
+    background-color: #B22F2F; /* Background color for the active item */
+    color: white; /* Text color when active */
+}
+
+.AdminListDiv2 span.active a {
+    color: white; /* Change link color to white when active */
+}
+
+.AdminListDiv2 span.active svg {
+    fill: white; /* Change icon color to white when active */
+}
+
+.removeDeco {
+    text-decoration: none;
+}
+
+.black {
+    color: black;
+}
