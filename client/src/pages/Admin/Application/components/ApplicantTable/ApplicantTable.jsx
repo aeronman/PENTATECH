@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ApplicantTable.css";
+import { useNavigate } from "react-router-dom";
 
 const ApplicantTable = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch data from the backend
@@ -37,7 +40,10 @@ const ApplicantTable = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
+    const handleView = (id) =>{
+        localStorage.setItem("view_id",id);
+        navigate("/Admin/ViewDetails");
+    }
     return (
         <div className="TableContainer">
             <table className="ApplicantTable">
@@ -62,7 +68,7 @@ const ApplicantTable = () => {
                             <td>{row.requirements}</td>
                             <td>{row.email}</td>
                             <td>
-                                <button className="ViewMore">View More</button>
+                                <button className="ViewMore" onClick={() => handleView(row.userId)}>View More</button>
                             </td>
                         </tr>
                     ))}

@@ -3,7 +3,6 @@ require_once "../config/connection.php";
 
 header('Content-Type: application/json');
 
-
 if (!$conn) {
     echo json_encode(['status' => 'error', 'message' => 'Database connection failed.']);
     exit();
@@ -23,8 +22,8 @@ try {
         ON 
             u.UserID = pd.UserId
         WHERE 
-            u.UserType = 'student' 
-            AND u.application_status = 'pending'
+            u.UserType = 'student'
+            AND u.application_status NOT IN ('Approved', 'Declined')
     ";
 
     $result = $conn->query($query);

@@ -2,7 +2,7 @@ import React, { useRef, useState , useEffect } from "react";
 import "./AdminScholars.css";
 import AdminSidebar from "../common/AdminSidebar/AdminSidebar";
 import RegProfile from "../../Registered/common/regprofile/regprofile";
-
+import { useNavigate } from "react-router-dom";
 // Add FontAwesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faFileExport, faFileAlt, faUserFriends, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ const Scholars = () => {
   const filterButtonRef = useRef(null);
   const [scholarsData, setScholarsData] = useState([]);
   const rowsPerPage = 10;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchScholarsData = async () => {
@@ -51,6 +52,10 @@ const toggleFilterModal = () => {
   }
   setFilterModalOpen(!isFilterModalOpen);
 };
+const handleView = (id) =>{
+  localStorage.setItem("view_id",id);
+  navigate("/Admin/ViewDetails");
+}
 
 return (
   <div className="AdminSholars1">
@@ -107,7 +112,7 @@ return (
                 <td>{scholar.address}</td>
                 <td>{scholar.program}</td>
                 <td>
-                  <button className="view-btn">
+                  <button className="view-btn" onClick={() => handleView(scholar.user_id)}>
                     <FontAwesomeIcon icon={faEye} /> View
                   </button>
                   <button className="edit-btn">

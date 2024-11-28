@@ -51,7 +51,14 @@ export default function LoginBox() {
                 localStorage.setItem("feedback_given", Feedback);
 
                 // Redirecting to the dashboard after successful login
-                navigate("/regdashboard");
+
+                if(UserType == "Student"){
+                    navigate("/regdashboard");
+                }
+                else if(UserType == "admin"){
+                    navigate("/Admin/Dashboard");
+                }
+                
             } else {
                 alert(response.data.message); // Displaying login error message
             }

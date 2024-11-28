@@ -28,6 +28,7 @@ import AdminInterview from "./pages/Admin/Interview/AdminInterview";
 import AdminScholars from "./pages/Admin/Scholars/AdminScholars";
 import AdminStatus from "./pages/Admin/Status/AdminStatus";
 import AdminProfile from "./pages/Admin/Profile/AdminProfile";
+import AdminViewDetails from "./pages/Admin/ViewDetails/ViewDetails"
 
 
 // SuperAdmin Pages
@@ -82,6 +83,7 @@ export default function App() {
         <Route path="/Admin/Application" element={<AdminApplication />} />
         <Route path="/Admin/FAQs" element={<AdminFAQs />} />
         <Route path="/Admin/Feedbacks" element={<AdminFeedbacks />} />
+        <Route path="/Admin/ViewDetails" element={<AdminViewDetails />} />
         <Route
           path="/Admin/Interview"
           element={
