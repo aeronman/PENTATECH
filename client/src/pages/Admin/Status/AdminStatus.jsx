@@ -4,7 +4,7 @@ import AdminSidebar from "../common/AdminSidebar/AdminSidebar";
 import RegProfile from "../../Registered/common/regprofile/regprofile";
 
 // Add FontAwesome icons
-import { FaCheck, FaClock, FaTimes, FaFilter, FaSearch, FaFileExport, FaFileAlt } from "react-icons/fa";
+import { FaCheck, FaClock, FaTimes, FaFilter, FaSearch, FaFileExport, FaSync } from "react-icons/fa";
 import { FaGraduationCap } from 'react-icons/fa';
 
 const StatusPage = () => {
@@ -119,10 +119,10 @@ const StatusPage = () => {
                   <FaFilter /> Filter
                 </button>
                 <button className="export-btn">
-                  <FaFileExport /> Export
+                  <FaSync /> Update
                 </button>
                 <button className="report-btn">
-                  <FaFileAlt /> Report
+                  <FaFileExport /> Export
                 </button>
               </div>
             </div>
