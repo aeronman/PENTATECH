@@ -1,9 +1,11 @@
 .PaginationContainer {
+    position: relative;
+    top: -170px; /* Adjust the value to move upwards */
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-top: 450px;
+    padding: 10px 0;
 }
 
 .PaginationButton {

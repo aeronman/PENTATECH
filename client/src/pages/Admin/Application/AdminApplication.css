@@ -12,7 +12,7 @@
     left: 0;
     width: 15%;
     height: 100vh;
-    background-color: white;
+    width: 15%;
 }
 
 /* Main Content Section */
@@ -28,9 +28,9 @@
 /* Profile Section */
 .AdminApplicationDiv1-2-1 {
     display: flex;
+    height: 15%;
     align-items: center;
     justify-content: center;
-    height: 15%;
 }
 
 /* Main Application Content */
@@ -45,7 +45,7 @@
     border-radius: 15px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, .5);
     padding: 1% 3%;
-    overflow-y: auto; /* Make the content scrollable */
+    overflow-y: hidden;
 }
 
 /* Content Container */
@@ -83,13 +83,17 @@
 
 /* Applicant Table Section */
 .AdminApplicationTableContainer {
-    max-height: 400px; /* Constrain table height for scrollability */
-    overflow-y: auto;
+    min-height: 500px;
+    height: auto;
+    overflow: hidden;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #fff;
-    padding: 10px; /* Add padding inside the table container */
+    padding: 10px;
+    margin-top: 20px; /* Adds spacing above the table */
 }
+
+
 
 /* Pagination Section */
 .AdminApplicationPagination {
