@@ -1,23 +1,29 @@
-/* outer div */
+/* Outer div */
 .RegHomeDiv1 {
     display: flex;
     flex-direction: row;
 }
 
-/* dashboard div */
+/* Sidebar div - Make it fixed */
 .RegHomeDiv1-1 {
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 15%;
     background-color: white;
+    z-index: 10; /* To make sure it stays on top */
 }
 
-/* profile, updates, and chart div */
+/* Profile, updates, and chart div */
 .RegHomeDiv1-2 {
+    margin-left: 15%; /* To avoid content hiding behind the fixed sidebar */
     width: 85%;
-    overflow: hidden;
+    overflow-y: auto; /* Make content scrollable */
+    height: 100vh; /* Ensure it takes full height */
 }
 
-/* profile div */
+/* Profile div */
 .RegHomeDiv1-2-1 {
     display: flex;
     align-items: center;
@@ -25,18 +31,18 @@
     height: 15%; 
 }
 
-/* updates and mission div */
+/* Updates and mission div */
 .RegHomeDiv1-2-2 {
     height: 60%;
     display: flex;
 }
 
-/* updates div */
+/* Updates div */
 .RegHomeDiv1-2-2-1 {
     width: 50%;
 }
 
-/* total scholars div */
+/* Total scholars div */
 .RegHomeDiv1-2-2-1-1 {
     display: flex;
     align-items: center;
@@ -44,7 +50,7 @@
     height: 46.5%; 
 }
 
-/* total applicants div */
+/* Total applicants div */
 .RegHomeDiv1-2-2-1-2 {
     display: flex;
     align-items: center;
@@ -52,7 +58,7 @@
     height: 46.5%;
 }
 
-/* mission div */
+/* Mission div */
 .RegHomeDiv1-2-2-2 {
     height: 90%; 
     display: flex;

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $civilStatus = $_POST['CIVIL_STATUS'];
     $pwd = $_POST['PWD'];
     $contactNo = $_POST['CONTACT_NO'];
-<<<<<<< HEAD
+
     $pwdID = $_POST['PWD_ID']; 
 
     // Query to insert or update personal details
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      $placeOfBirth, $province, $cityMunicipality, $barangay, $streetAddress, $sex, $civilStatus, $pwd, 
                      $contactNo, $pwdID);
 
-=======
+
     $pwdID = $_POST['PWD_ID'];
 
     // Check if data for the given userID exists
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Execute the appropriate query
->>>>>>> ef9ba032c4ec2e0aef14ad32aafd1476751626d2
+
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Personal details saved successfully']);
     } else {

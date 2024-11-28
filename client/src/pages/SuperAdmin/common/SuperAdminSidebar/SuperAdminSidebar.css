@@ -1,28 +1,29 @@
-/* Sidebar Styles */
-.sidebarDiv {
+/* Admin Sidebar Styles */
+.SuperAdminsidebarDiv {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: white;
     box-shadow: 5px 0px 8px rgba(0, 0, 0, 0.5);
 }
 
-.regLogoNameDiv {
+.AdminLogoNameDiv {
     display: flex;
     align-items: center;
     gap: 5%;
-    font-size: 0.7rem;
+    font-size: .7rem;
     padding: 20% 10%;
     color: #7D0A0A;
 }
 
-.regListDiv {
+.SuperAdminListDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5vh;
 }
 
-.regListDiv > span {
+.SuperAdminListDiv > span {
     display: flex;
     padding-left: 5vh;
     border-radius: 12px;
@@ -34,46 +35,48 @@
 }
 
 /* Icon Color */
-.regListDiv > span > svg {
+.SuperAdminListDiv > span > svg {
     color: #B22F2F; /* Icon default color */
     transition: color 0.3s;
 }
 
 /* Text Color */
-.regListDiv > span a {
-    color: black;
+.SuperAdminListDiv > span a {
+    color: black; /* Text color */
     text-decoration: none;
     transition: color 0.3s;
 }
 
 /* Hover Effects */
-.regListDiv > span:hover {
+.SuperAdminListDiv > span:hover {
     background-color: #B22F2F; /* Highlight color on hover */
     transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-.regListDiv > span:hover > svg {
+.SuperAdminListDiv > span:hover > svg {
     color: white; /* Icon color on hover */
 }
 
-.regListDiv > span:hover a {
+.SuperAdminListDiv > span:hover a {
     color: white; /* Text color on hover */
 }
 
-.regListDiv2 {
-    margin-top: auto; /* Push this section to the bottom */
+.SuperAdminListDiv2 {
+    margin-top: auto;  /* Push this section to the bottom */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0vh;
-    padding-bottom: 20px; /* Adjust space at the bottom */
+    padding-bottom: 20px;  /* Adjust space at the bottom if needed */
 }
 
-.regListDiv2 > hr {
+
+.SuperAdminListDiv2 > hr {
     width: 25vh;
 }
 
-.regListDiv2 > span {
+
+.SuperAdminListDiv2 > span {
     display: flex;
     padding-left: 5vh;
     border-radius: 12px;
@@ -84,58 +87,59 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Icon Color for AdminListDiv2 */
-.regListDiv2 > span > svg {
+/* Icon Color for SuperAdminListDiv2 */
+.SuperAdminListDiv2 > span > svg {
     color: #B22F2F; /* Icon default color */
     transition: color 0.3s;
 }
 
-/* Text Color for AdminListDiv2 */
-.regListDiv2 > span a {
-    color: black;
+/* Text Color for SuperAdminListDiv2 */
+.SuperAdminListDiv2 > span a {
+    color: black; /* Text color */
     text-decoration: none;
     transition: color 0.3s;
 }
 
-/* Hover Effects for AdminListDiv2 */
-.regListDiv2 > span:hover {
+/* Hover Effects for SuperAdminListDiv2 */
+.SuperAdminListDiv2 > span:hover {
     background-color: #B22F2F; /* Highlight color on hover */
     transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-.regListDiv2 > span:hover > svg {
+.SuperAdminListDiv2 > span:hover > svg {
     color: white; /* Icon color on hover */
 }
 
-.regListDiv2 > span:hover a {
+.SuperAdminListDiv2 > span:hover a {
     color: white; /* Text color on hover */
 }
 
-.regListDiv > span.active {
-    background-color: #B22F2F; /* Background color for active item */
+.SuperAdminListDiv span.active {
+    background-color: #B22F2F; /* Background color for the active item */
     color: white; /* Text color when active */
 }
 
-.regListDiv > span.active a {
-    color: white; /* Link color when active */
+.SuperAdminListDiv span.active a {
+    color: white; /* Change link color to white when active */
 }
 
-.regListDiv > span.active svg {
-    fill: white; /* Icon color when active */
+.SuperAdminListDiv span.active svg {
+    fill: white; /* Change icon color to white when active */
 }
 
-.regListDiv2 span.active {
-    background-color: #B22F2F; /* Background color for active item */
+.SuperAdminListDiv2 span.active {
+    background-color: #B22F2F; /* Background color for the active item */
     color: white; /* Text color when active */
 }
 
-.regListDiv2 span.active a {
-    color: white; /* Link color when active */
+.SuperAdminListDiv2 span.active a {
+    color: white; /* Change link color to white when active */
 }
 
-.regListDiv2 span.active svg {
-    fill: white; /* Icon color when active */
+.SuperAdminListDiv2 span.active svg {
+    fill: white; /* Change icon color to white when active */
 }
+
 
 .removeDeco {
     text-decoration: none;

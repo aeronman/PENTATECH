@@ -80,6 +80,7 @@ const RegApplication1 = forwardRef((props, ref) => {
                         value={formData.fatherSalary} 
                         onChange={handleInputChange}
                     >
+                        <option value="monthly">Select their monthly salary</option>
                         <option value="10k-20k">10k-20k</option>
                         <option value="30k-40k">30k-40k</option>
                         <option value="50k-60k">50k-60k</option>
@@ -117,6 +118,7 @@ const RegApplication1 = forwardRef((props, ref) => {
                         value={formData.motherSalary} 
                         onChange={handleInputChange}
                     >
+                        <option value="monthly">Select their monthly salary</option>
                         <option value="10k-20k">10k-20k</option>
                         <option value="30k-40k">30k-40k</option>
                         <option value="50k-60k">50k-60k</option>
@@ -156,6 +158,7 @@ const RegApplication1 = forwardRef((props, ref) => {
                         value={formData.siblingSalary} 
                         onChange={handleInputChange}
                     >
+                        <option value="monthly">Select their monthly salary</option>
                         <option value="10k-20k">10k-20k</option>
                         <option value="30k-40k">30k-40k</option>
                         <option value="50k-60k">50k-60k</option>

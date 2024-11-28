@@ -92,14 +92,6 @@ export default function RegApplication1({ moveToForm, formData, setFormData }) {
         );
     };
 
-    const CustomNextArrow = (props) => {
-        const { onClick } = props;
-        return (
-            <div className="custom-arrow custom-next" onClick={onClick}>
-                <span>&gt;</span>
-            </div>
-        );
-    };
 
     const settings = {
         dots: true,
@@ -112,7 +104,6 @@ export default function RegApplication1({ moveToForm, formData, setFormData }) {
         autoplay: false,
         prevArrow: <button className="slick-prev">←</button>,
         nextArrow: <button className="slick-next">→</button>,
-        centerMode: true, 
         focusOnSelect: false, // Disable selecting slides when clicking
         responsive: [
             {

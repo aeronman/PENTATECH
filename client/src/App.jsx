@@ -30,6 +30,18 @@ import AdminStatus from "./pages/Admin/Status/AdminStatus";
 import AdminProfile from "./pages/Admin/Profile/AdminProfile";
 
 
+// SuperAdmin Pages
+
+import SuperAdminDashboard from "./pages/SuperAdmin/Dashboard/SuperAdminDashboard";
+import SuperAdminApplication from "./pages/SuperAdmin/Application/SuperAdminApplication";
+import SuperAdminFAQs from "./pages/SuperAdmin/FAQ's/SuperAdminFAQs";
+import SuperAdminFeedbacks from "./pages/SuperAdmin/Feedback/SuperAdminFeedbacks";
+import SuperAdminInterview from "./pages/SuperAdmin/Interview/SuperAdminInterview";
+import SuperAdminScholars from "./pages/SuperAdmin/Scholars/SuperAdminScholars";
+import SuperAdminStatus from "./pages/SuperAdmin/Status/SuperAdminStatus";
+import SuperAdminProfile from "./pages/SuperAdmin/Profile/SuperAdminProfile";
+import SuperAdminAdmins from "./pages/SuperAdmin/Admin/Admins";
+
 import "./App.css";
 
 export default function App() {
@@ -77,6 +89,25 @@ export default function App() {
         <Route path="/Admin/Scholars" element={<AdminScholars />} />
         <Route path="/Admin/Status" element={<AdminStatus />} />
         <Route path="/Admin/Profile" element={<AdminProfile />} />
+
+
+        {/* SuperAdmin Routes */}
+        <Route path="/SuperAdmin/Dashboard" element={<SuperAdminDashboard />} />
+        <Route path="/SuperAdmin/Application" element={<SuperAdminApplication />} />
+        <Route path="/SuperAdmin/FAQs" element={<SuperAdminFAQs />} />
+        <Route path="/SuperAdmin/Feedbacks" element={<SuperAdminFeedbacks />} />
+        <Route
+          path="/SuperAdmin/Interview"
+          element={
+            <AdminInterview
+              applicantEmail="applicant@example.com" // Replace dynamically
+            />
+          }
+        />
+        <Route path="/SuperAdmin/Scholars" element={<SuperAdminScholars />} />
+        <Route path="/SuperAdmin/Status" element={<SuperAdminStatus />} />
+        <Route path="/SuperAdmin/Profile" element={<SuperAdminProfile />} />
+        <Route path="/SuperAdmin/Admins" element={<SuperAdminAdmins/>} />
 
       </Routes>
     </div>
