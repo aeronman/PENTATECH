@@ -40,7 +40,7 @@ export default function LoginBox() {
             );
 
             if (response.data.message === "Login successful.") {
-                const { UserID, Username, UserType, Email , Status } = response.data.user;
+                const { UserID, Username, UserType, Email , Status, Feedback } = response.data.user;
 
                 // Storing user data in localStorage
                 localStorage.setItem("id",UserID);
@@ -48,6 +48,7 @@ export default function LoginBox() {
                 localStorage.setItem("fullname", Username); // Changed to 'fullname'
                 localStorage.setItem("usertype", UserType);
                 localStorage.setItem("email", Email);
+                localStorage.setItem("feedback_given", Feedback);
 
                 // Redirecting to the dashboard after successful login
                 navigate("/regdashboard");
