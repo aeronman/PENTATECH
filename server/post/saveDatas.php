@@ -14,20 +14,37 @@ if (!$data) {
     exit;
 }
 
-
-$updateUser = $conn->prepare("UPDATE `user` SET `program_applied`= ?,`application_status`= ? WHERE UserID = ?");
-$updateUser->bind_param("ssi",$data->programApplied,$data->status,$data->personalDetails->userID);
+// Update user table
+$updateUser = $conn->prepare("UPDATE `user` SET `program_applied` = ?, `application_status` = ? WHERE UserID = ?");
+$updateUser->bind_param("ssi", $data->programApplied, $data->status, $data->personalDetails->userID);
 $updateUser->execute();
 
+// Update personal details
 $personalStmt = $conn->prepare("
-    INSERT INTO personal_details 
-    (userID, Student_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, DATE_OF_BIRTH, age, PLACE_OF_BIRTH, Province, CITY_MUNICIPALITY, BARANGAY, STREET_ADDRESS, SEX, CIVIL_STATUS, PWD, RELIGION, CONTACT_NO, PWD_ID, PWDPreview) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    UPDATE personal_details SET 
+    Student_ID = ?, 
+    FIRST_NAME = ?, 
+    MIDDLE_NAME = ?, 
+    LAST_NAME = ?, 
+    DATE_OF_BIRTH = ?, 
+    age = ?, 
+    PLACE_OF_BIRTH = ?, 
+    Province = ?, 
+    CITY_MUNICIPALITY = ?, 
+    BARANGAY = ?, 
+    STREET_ADDRESS = ?, 
+    SEX = ?, 
+    CIVIL_STATUS = ?, 
+    PWD = ?, 
+    RELIGION = ?, 
+    CONTACT_NO = ?, 
+    PWD_ID = ?, 
+    PWDPreview = ? 
+    WHERE userID = ?
 ");
 
 $personalStmt->bind_param(
-    "issssssssssssssssss",
-    $data->personalDetails->userID,
+    "ssssssssssssssssssi",
     $data->personalDetails->Student_ID,
     $data->personalDetails->FIRST_NAME,
     $data->personalDetails->MIDDLE_NAME,
@@ -45,20 +62,34 @@ $personalStmt->bind_param(
     $data->personalDetails->RELIGION,
     $data->personalDetails->CONTACT_NO,
     $data->personalDetails->PWD_ID,
-    $data->personalDetails->PWDPreview
+    $data->personalDetails->PWDPreview,
+    $data->personalDetails->userID
 );
 $personalStmt->execute();
 
+// Update family data
 $familyStmt = $conn->prepare("
-    INSERT INTO family_data 
-    (userID, father, fatherOccupation, fatherSalary, mother, motherOccupation, motherSalary, siblingsWithFamily, siblingsWithWork, siblingSalary, siblingsElementary, siblingsHighSchool, siblingsCollege, electricBill, waterBill, otherExpenses) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    UPDATE family_data SET 
+    father = ?, 
+    fatherOccupation = ?, 
+    fatherSalary = ?, 
+    mother = ?, 
+    motherOccupation = ?, 
+    motherSalary = ?, 
+    siblingsWithFamily = ?, 
+    siblingsWithWork = ?, 
+    siblingSalary = ?, 
+    siblingsElementary = ?, 
+    siblingsHighSchool = ?, 
+    siblingsCollege = ?, 
+    electricBill = ?, 
+    waterBill = ?, 
+    otherExpenses = ?
+    WHERE userID = ?
 ");
 
-// Adjust type string to match the variables
 $familyStmt->bind_param(
-    "isssssssssssssss",
-    $data->personalDetails->userID,       
+    "sssssssssssssssi",
     $data->familyData->father,         
     $data->familyData->fatherOccupation, 
     $data->familyData->fatherSalary,  
@@ -73,20 +104,27 @@ $familyStmt->bind_param(
     $data->familyData->siblingsCollege, 
     $data->familyData->electricBill,  
     $data->familyData->waterBill,     
-    $data->familyData->otherExpenses  
+    $data->familyData->otherExpenses,  
+    $data->personalDetails->userID
 );
-
 $familyStmt->execute();
 
-// Insert educationalBgData
+// Update educational background data
 $eduStmt = $conn->prepare("
-    INSERT INTO educational_bg_data 
-    (userID, lastSchool, lastCourse, grades, numOfUnits, newSchool, newCourse, levelYear, semester) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    UPDATE educational_bg_data SET 
+    lastSchool = ?, 
+    lastCourse = ?, 
+    grades = ?, 
+    numOfUnits = ?, 
+    newSchool = ?, 
+    newCourse = ?, 
+    levelYear = ?, 
+    semester = ? 
+    WHERE userID = ?
 ");
+
 $eduStmt->bind_param(
-    "isssissss",
-    $data->personalDetails->userID,
+    "sssissssi",
     $data->educationalBgData->lastSchool,
     $data->educationalBgData->lastCourse,
     $data->educationalBgData->grades,
@@ -94,20 +132,27 @@ $eduStmt->bind_param(
     $data->educationalBgData->newSchool,
     $data->educationalBgData->newCourse,
     $data->educationalBgData->levelYear,
-    $data->educationalBgData->semester
+    $data->educationalBgData->semester,
+    $data->personalDetails->userID
 );
 $eduStmt->execute();
 
-
-// Insert documentsData
+// Update documents data
 $docsStmt = $conn->prepare("
-    INSERT INTO documents_data 
-    (userID, bills, brgyIndigency, cedula, socialCase, form138, certificateEnrollment, certificateMembership, certificateEmployment) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    UPDATE documents_data SET 
+    bills = ?, 
+    brgyIndigency = ?, 
+    cedula = ?, 
+    socialCase = ?, 
+    form138 = ?, 
+    certificateEnrollment = ?, 
+    certificateMembership = ?, 
+    certificateEmployment = ? 
+    WHERE userID = ?
 ");
+
 $docsStmt->bind_param(
-    "issssssss",
-    $data->personalDetails->userID,
+    "ssssssssi",
     $data->documentsData->bills,
     $data->documentsData->brgyIndigency,
     $data->documentsData->cedula,
@@ -115,11 +160,13 @@ $docsStmt->bind_param(
     $data->documentsData->form138,
     $data->documentsData->certificateEnrollment,
     $data->documentsData->certificateMembership,
-    $data->documentsData->certificateEmployment
+    $data->documentsData->certificateEmployment,
+    $data->personalDetails->userID
 );
 $docsStmt->execute();
 
 // Close statements and connection
+$updateUser->close();
 $personalStmt->close();
 $familyStmt->close();
 $eduStmt->close();
@@ -127,5 +174,5 @@ $docsStmt->close();
 $conn->close();
 
 // Send a response
-echo json_encode(["status" => "success", "message" => "Data saved successfully"]);
+echo json_encode(["status" => "success", "message" => "Data updated successfully"]);
 ?>

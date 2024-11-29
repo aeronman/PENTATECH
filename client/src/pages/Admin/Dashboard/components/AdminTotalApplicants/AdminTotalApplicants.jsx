@@ -4,7 +4,7 @@ import "./AdminTotalApplicants.css"
 // Simulated data fetching function (replace with your actual API or database call)
 const fetchApplicants = async () => {
     try {
-        const response = await fetch( `${import.meta.env.VITE_SERVER_URL}/get/total_new_applicant.php`); // Replace with actual PHP endpoint path
+        const response = await fetch( `${import.meta.env.VITE_SERVER_URL}/get/total_new_applicant.php`);
         const data = await response.json();
         if (data.status === "success") {
             return data.data; // Return the total_scholars count

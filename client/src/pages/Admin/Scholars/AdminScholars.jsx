@@ -56,6 +56,10 @@ const handleView = (id) =>{
   localStorage.setItem("view_id",id);
   navigate("/Admin/ViewDetails");
 }
+const handleEdit = (id) =>{
+  localStorage.setItem("edit_id",id);
+  navigate("/Admin/EditDetails");
+}
 
 return (
   <div className="AdminSholars1">
@@ -115,7 +119,7 @@ return (
                   <button className="view-btn" onClick={() => handleView(scholar.user_id)}>
                     <FontAwesomeIcon icon={faEye} /> View
                   </button>
-                  <button className="edit-btn">
+                  <button className="edit-btn" onClick={() => handleEdit(scholar.user_id)}>
                     <FontAwesomeIcon icon={faEdit} /> Edit
                   </button>
                 </td>

@@ -32,6 +32,7 @@ import AdminScholars from "./pages/Admin/Scholars/AdminScholars";
 import AdminStatus from "./pages/Admin/Status/AdminStatus";
 import AdminProfile from "./pages/Admin/Profile/AdminProfile";
 import AdminViewDetails from "./pages/Admin/ViewDetails/ViewDetails"
+import AdminEditDetails from "./pages/Admin/EditDetails/RegApplicationForm"
 
 
 // SuperAdmin Pages
@@ -88,6 +89,7 @@ export default function App() {
         <Route path="/Admin/FAQs" element={<AdminFAQs />} />
         <Route path="/Admin/Feedbacks" element={<AdminFeedbacks />} />
         <Route path="/Admin/ViewDetails" element={<AdminViewDetails />} />
+        <Route path="/Admin/EditDetails" element={<AdminEditDetails />} />
         <Route
           path="/Admin/Interview"
           element={
