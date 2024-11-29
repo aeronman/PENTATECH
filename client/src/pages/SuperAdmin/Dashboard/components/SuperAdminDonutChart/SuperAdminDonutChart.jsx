@@ -4,21 +4,53 @@ import { Chart as ChartJS, CategoryScale, ArcElement, Tooltip, Legend } from "ch
 
 ChartJS.register(CategoryScale, ArcElement, Tooltip, Legend);
 
+// Fetch data from the backend
+const fetchApplicantData = async () => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/get/fetch_donut_chart.php`);
+        const data = await response.json();
+        if (data.status === "success") {
+            return data.data;
+        } else {
+            throw new Error("Failed to fetch applicant data");
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return { inProgress: 0, approved: 0, declined: 0 }; // Default in case of error
+    }
+};
+
 const SuperAdminDonutChart = () => {
+    const [applicantData, setApplicantData] = useState({
+        inProgress: 0,
+        approved: 0,
+        declined: 0,
+    });
+
+    // Fetch data on component mount
+    useEffect(() => {
+        const getData = async () => {
+            const data = await fetchApplicantData();
+            setApplicantData(data);
+        };
+
+        getData();
+    }, []);
+
+    const totalApplicants = applicantData.inProgress + applicantData.approved + applicantData.declined;
+
     const data = {
         labels: ["In Progress", "Approved", "Denied"],
         datasets: [
             {
                 label: "Applicants Breakdown",
-                data: [300, 150, 50], // Example counts
+                data: [applicantData.inProgress, applicantData.approved, applicantData.declined],
                 backgroundColor: ["#FFB6C1", "#98FB98", "#FF6347"],
                 borderColor: ["#FFB6C1", "#98FB98", "#FF6347"],
                 borderWidth: 1,
             },
         ],
     };
-
-    const totalApplicants = data.datasets[0].data.reduce((sum, value) => sum + value, 0);
 
     const options = {
         responsive: true,
@@ -29,7 +61,6 @@ const SuperAdminDonutChart = () => {
                 labels: {
                     boxWidth: 20,
                     generateLabels: (chart) => {
-                        // Generate percentage labels for the legend
                         const dataset = chart.data.datasets[0];
                         return chart.data.labels.map((label, index) => {
                             const value = dataset.data[index];
@@ -69,7 +100,7 @@ const SuperAdminDonutChart = () => {
             <div style={{ textAlign: "center", marginBottom: "20px" }}>
                 <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>Scholarship Application Status Breakdown</h2>
                 <p style={{ color: "#6c757d", fontSize: "16px" }}>
-                    <strong>Total Applicants:</strong> {totalApplicants} | <strong>In Progress:</strong> {data.datasets[0].data[0]} | <strong>Approved:</strong> {data.datasets[0].data[1]} | <strong>Denied:</strong> {data.datasets[0].data[2]}
+                    <strong>Total Applicants:</strong> {totalApplicants} | <strong>In Progress:</strong> {applicantData.inProgress} | <strong>Approved:</strong> {applicantData.approved} | <strong>Denied:</strong> {applicantData.declined}
                 </p>
             </div>
             {/* Donut Chart */}

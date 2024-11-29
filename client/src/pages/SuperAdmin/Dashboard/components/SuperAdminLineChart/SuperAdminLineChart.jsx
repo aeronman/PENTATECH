@@ -16,12 +16,35 @@ import "./SuperAdminLineChart.css";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 export default function SuperAdminLineChart() {
+    const [programData, setProgramData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch data from the PHP endpoint
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/get/fetch_line_chart.php`);
+                const data = await response.json(); // Parse the JSON response
+                
+                // Extract the counts for each program
+                const programs = ["LMSK", "FASHS", "APKA", "VSCP", "AVSP/ABOSP", "TPKM", "NMMMSP"];
+                const studentCounts = programs.map((program) => {
+                    return data[program] || 0; // Default to 0 if no data exists for the program
+                });
+                setProgramData(studentCounts); // Update state with the fetched data
+            } catch (error) {
+                console.error("Error fetching program data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const chartData = {
         labels: ["LMSK", "FASHS", "APKA", "VSCP", "AVSP/ABOSP", "TPKM", "NMMMSP"],
         datasets: [
             {
                 label: "Students Applied",
-                data: [500, 700, 1200, 1500, 1800, 2100, 2500],
+                data: programData, // Use the dynamic data here
                 borderColor: "rgba(255, 99, 132, 1)",
                 backgroundColor: "rgba(255, 99, 132, 0.2)", 
                 pointBorderColor: "rgba(255, 99, 132, 1)",

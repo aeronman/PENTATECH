@@ -1,6 +1,6 @@
 /* =================== GENERAL LAYOUT =================== */
 /* Outer container */
-.SuperAdminFeedbackDiv1 {
+.AdminFeedbackDiv1 {
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -8,7 +8,7 @@
 }
 
 /* Sidebar */
-.SuperAdminFeedbackDiv1-1 {
+.AdminFeedbackDiv1-1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +18,7 @@
 }
 
 /* Main content */
-.SuperAdminFeedbackDiv1-2 {
+.AdminFeedbackDiv1-2 {
   margin-left: 15%;
   flex-grow: 1;
   height: 100vh;
@@ -28,7 +28,7 @@
 }
 
 /* Profile section */
-.SuperAdminFeedbackDiv1-2-1 {
+.AdminFeedbackDiv1-2-1 {
   width: 95%;
   display: flex;
   height: 15%;
@@ -37,7 +37,7 @@
 }
 
 /* Feedback content container */
-.SuperAdminFeedbackDiv1-2-2 {
+.AdminFeedbackDiv1-2-2 {
   display: flex;
   flex-direction: column; 
   margin-left: 5%;
@@ -106,35 +106,35 @@ td {
   font-size: 14px;
 }
 
-.SuperAdminFeedbackDiv1-2-2-table {
+.AdminFeedbackDiv1-2-2-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.SuperAdminFeedbackDiv1-2-2-table th,
-.SuperAdminFeedbackDiv1-2-2-table td {
+.AdminFeedbackDiv1-2-2-table th,
+.AdminFeedbackDiv1-2-2-table td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
-.SuperAdminFeedbackDiv1-2-2-table th {
+.AdminFeedbackDiv1-2-2-table th {
   background-color: #f5f5f5;
   font-size: 16px;
   font-weight: bold;
 }
 
-.SuperAdminFeedbackDiv1-2-2-table tbody tr:nth-child(odd) {
+.AdminFeedbackDiv1-2-2-table tbody tr:nth-child(odd) {
   background-color: #fafafa;
 }
 
-.SuperAdminFeedbackDiv1-2-2-table tbody tr:hover {
+.AdminFeedbackDiv1-2-2-table tbody tr:hover {
   background-color: #f0f0f0;
 }
 
 /* =================== STATUS CLASSES =================== */
-.SuperAdminFeedbackDiv1-2-2-status {
+.AdminFeedbackDiv1-2-2-status {
   font-size: 14px;
 }
 
@@ -149,7 +149,7 @@ td {
 }
 
 /* =================== BUTTON STYLING INSIDE TABLE =================== */
-.SuperAdminFeedbackDiv1-2-2-table .action-btn {
+.AdminFeedbackDiv1-2-2-table .action-btn {
   padding: 8px 12px;
   border: none;
   border-radius: 4px;
@@ -163,25 +163,25 @@ td {
 }
 
 /* Respond button (inside table) - Red background */
-.SuperAdminFeedbackDiv1-2-2-table .action-btn.respond {
+.AdminFeedbackDiv1-2-2-table .action-btn.respond {
   background-color: #b22f2f; /* Red */
 }
 
-.SuperAdminFeedbackDiv1-2-2-table .action-btn.respond:hover {
+.AdminFeedbackDiv1-2-2-table .action-btn.respond:hover {
   background-color: #9a2323; /* Darker red on hover */
 }
 
 /* View button (inside table) - Gray background */
-.SuperAdminFeedbackDiv1-2-2-table .action-btn.view {
+.AdminFeedbackDiv1-2-2-table .action-btn.view {
   background-color: #555; /* Gray */
 }
 
-.SuperAdminFeedbackDiv1-2-2-table .action-btn.view:hover {
+.AdminFeedbackDiv1-2-2-table .action-btn.view:hover {
   background-color: #444; /* Darker gray on hover */
 }
 
 /* Disabled button style */
-.SuperAdminFeedbackDiv1-2-2-table .action-btn:disabled {
+.AdminFeedbackDiv1-2-2-table .action-btn:disabled {
   background-color: #b0bec5; /* Disabled state */
   color: #ffffff;
   cursor: not-allowed;

@@ -1,21 +1,21 @@
 
 /* General Layout */
-.SuperAdminStatus1 {
+.AdminStatus1 {
   display: flex;
   flex-direction: row;
 }
 
-.SuperAdminStatus1-1 {
+.AdminStatus1-1 {
   height: 100vh;
   width: 15%;
 }
 
-.SuperAdminStatus1-2 {
+.AdminStatus1-2 {
   width: 85%;
 }
 
 /* Profile Section */
-.SuperAdminStatus1-2-1 {
+.AdminStatus1-2-1 {
   display: flex;
   height: 15%;
   align-items: center;
@@ -23,7 +23,7 @@
 }
 
 /* Main Content Section */
-.SuperAdminStatus1-2-2 {
+.AdminStatus1-2-2 {
   position: relative;
   display: flex;
   flex-direction: column;
