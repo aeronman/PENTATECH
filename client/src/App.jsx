@@ -20,7 +20,7 @@ import RegStatus from "./pages/Registered/RegStatus/RegStatus";
 import RegProfile from "./pages/Registered/RegProfile/RegProfile";
 import RegFAQs from "./pages/Registered/RegFAQs/RegFAQs";
 import RegFeedbacks from "./pages/Registered/RegFeedbacks/RegFeedback";
-
+import RegInterview from "./pages/Registered/Interview/RegisteredInterview"
 // Admin Pages
 
 import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard";
@@ -47,7 +47,9 @@ import SuperAdminStatus from "./pages/SuperAdmin/Status/SuperAdminStatus";
 import SuperAdminProfile from "./pages/SuperAdmin/Profile/SuperAdminProfile";
 import SuperAdminAdmins from "./pages/SuperAdmin/Admin/Admins";
 
+
 import "./App.css";
+
 
 export default function App() {
   useEffect(() => {
@@ -81,6 +83,7 @@ export default function App() {
         <Route path="/regApplication" element={<RegApplication1 />} />
         <Route path="/regStatus" element={<RegStatus />} />
         <Route path="/regProfile" element={<RegProfile />} />
+        <Route path="/regInterview" element={<RegInterview />} />
         </Route>
         
         {/* Admin Routes */}
@@ -90,24 +93,18 @@ export default function App() {
         <Route path="/Admin/Feedbacks" element={<AdminFeedbacks />} />
         <Route path="/Admin/ViewDetails" element={<AdminViewDetails />} />
         <Route path="/Admin/EditDetails" element={<AdminEditDetails />} />
-        <Route
-          path="/Admin/Interview"
-          element={
-            <AdminInterview
-              applicantEmail="applicant@example.com" // Replace dynamically
-            />
-          }
-        />
+        
         <Route path="/Admin/Scholars" element={<AdminScholars />} />
         <Route path="/Admin/Status" element={<AdminStatus />} />
         <Route path="/Admin/Profile" element={<AdminProfile />} />
-
+        <Route path="/Admin/Interview" element={<AdminInterview />} />
 
         {/* SuperAdmin Routes */}
         <Route path="/SuperAdmin/Dashboard" element={<SuperAdminDashboard />} />
         <Route path="/SuperAdmin/Application" element={<SuperAdminApplication />} />
         <Route path="/SuperAdmin/FAQs" element={<SuperAdminFAQs />} />
         <Route path="/SuperAdmin/Feedbacks" element={<SuperAdminFeedbacks />} />
+        
         <Route
           path="/SuperAdmin/Interview"
           element={
