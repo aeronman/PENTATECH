@@ -6,6 +6,7 @@ import RegTotalScholars from "./components/RegTotalScholars/RegTotalScholars"
 import RegTotalApplicants from "./components/RegTotalApplicants/RegTotalApplicants"
 import RegMission from "./components/RegMission/RegMission"
 import RegLineChart from "./RegLineChart/RegLineChart"
+import VideoCallButton from "./components/VideoCallButton/VideoCallButton"
 
 import "./RegHome.css"
 import "../common/allReg.css"
@@ -36,6 +37,7 @@ export default function RegHome() {
                 <div className="RegHomeDiv1-2-3 ">
                     <RegLineChart />
                 </div>
+                <VideoCallButton />
             </div>
         </div>
     )
