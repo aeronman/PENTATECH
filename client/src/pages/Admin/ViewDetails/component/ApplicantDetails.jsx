@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import "./ApplicantDetails.css";
 
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import { QRCodeCanvas as QRCode } from 'qrcode.react';
+
 
 function ViewDetails() {
   const [loading, setLoading] = useState(true);
@@ -11,6 +13,7 @@ function ViewDetails() {
   const [applicationStatus, setApplicationStatus] = useState("");
   const [interviewSchedule, setInterviewSchedule] = useState("");
   const [showInterviewInput, setShowInterviewInput] = useState(false);
+  const qrCodeRef = useRef(null); // Reference to the QR Code
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +40,7 @@ function ViewDetails() {
 
     fetchData();
   }, []);
+
   const handleStatusChange = (event) => {
     const status = event.target.value;
     setApplicationStatus(status);
@@ -46,10 +50,20 @@ function ViewDetails() {
   const handleSubmit = async () => {
     try {
       const viewID = localStorage.getItem("view_id");
+
+      let qrBase64 = null;
+
+      if (applicationStatus === "Approved") {
+        // Generate the QR code as Base64
+        const qrCanvas = qrCodeRef.current.querySelector("canvas");
+        qrBase64 = qrCanvas.toDataURL("image/png");
+      }
+
       const payload = {
         view_id: viewID,
         application_status: applicationStatus,
         interview_schedule: showInterviewInput ? interviewSchedule : null,
+        payout_qr: qrBase64, // Include the QR code if applicable
       };
 
       const response = await fetch(
@@ -73,7 +87,6 @@ function ViewDetails() {
     }
   };
 
-
   if (loading) return <div>Loading...</div>;
   if (!applicantData) return <div>No pending application yet.</div>;
 
@@ -81,6 +94,7 @@ function ViewDetails() {
 
   const handleImageClick = (imageSrc) => setModalImage(imageSrc);
   const closeModal = () => setModalImage(null);
+  const viewID = localStorage.getItem("view_id");
 
   return (
     
@@ -229,6 +243,11 @@ function ViewDetails() {
               </div>
             )}
           </div>
+          {applicationStatus === "Approved" && (
+            <div ref={qrCodeRef} style={{ marginTop: "1rem" }}>
+              <QRCode value={`UserID: ${viewID}`} size={128} />
+            </div>
+          )}
           <button onClick={handleSubmit}>Update Status</button>
         </div>
             </div>

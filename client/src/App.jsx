@@ -29,6 +29,7 @@ import AdminStatus from "./pages/Admin/Status/AdminStatus";
 import AdminProfile from "./pages/Admin/Profile/AdminProfile";
 import AdminViewDetails from "./pages/Admin/ViewDetails/ViewDetails";
 import AdminEditDetails from "./pages/Admin/EditDetails/RegApplicationForm";
+import AdminQR from "./pages/Admin/ScanQR/ScanQR";
 
 // SuperAdmin Pages
 import SuperAdminDashboard from "./pages/SuperAdmin/Dashboard/SuperAdminDashboard";
@@ -135,7 +136,7 @@ export default function App() {
         />
         <Route
           path="/Admin/ViewDetails"
-          element={<ProtectedRoute element={<AdminViewDetails />} allowedUserTypes={["admin"]} />}
+          element={<ProtectedRoute element={<AdminViewDetails />} allowedUserTypes={["admin","superadmin"]} />}
         />
         <Route
           path="/Admin/EditDetails"
@@ -156,6 +157,10 @@ export default function App() {
         <Route
           path="/Admin/Interview"
           element={<ProtectedRoute element={<AdminInterview />} allowedUserTypes={["admin"]} />}
+        />
+         <Route
+          path="/Admin/QR"
+          element={<ProtectedRoute element={<AdminQR />} allowedUserTypes={["admin"]} />}
         />
 
         {/* SuperAdmin Routes */}

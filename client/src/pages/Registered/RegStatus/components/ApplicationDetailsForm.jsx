@@ -15,8 +15,8 @@ function ApplicationDetailsForm() {
                     return;
                 }
 
-                const response = await fetch(
-                    `${import.meta.env.VITE_SERVER_URL}/get/getPersonalDetails.php?userID=${userID}`
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/get/getPersonalDetails.php?userID=${userID}`
+                    
                 );
                 const data = await response.json();
 

@@ -49,3 +49,25 @@
   .status-step.upcoming .status-icon {
     color: #ccc;
   }
+  .qr-code-section {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .qr-code-image {
+    max-width: 200px;
+    margin-bottom: 10px;
+  }
+  
+  .download-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  
