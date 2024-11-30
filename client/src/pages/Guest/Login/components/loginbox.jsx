@@ -55,7 +55,7 @@ export default function LoginBox() {
                 if(UserType == "Student"){
                     navigate("/regdashboard");
                 }
-                else if(UserType == "Admin"){
+                else if(UserType == "admin"){
                     navigate("/Admin/Dashboard");
                 }
                 else if(UserType == "superadmin"){
