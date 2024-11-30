@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SuperAdminStatus.css";
 import SuperAdminSidebar from "../common/SuperAdminSidebar/SuperAdminSidebar";
 import RegProfile from "../../Registered/common/regprofile/regprofile";
 
 // Add FontAwesome icons
-import { FaCheck, FaClock, FaTimes, FaFilter, FaSearch, FaFileExport, FaFileAlt } from "react-icons/fa";
+import { FaCheck, FaClock, FaTimes, FaFilter, FaSearch, FaFileExport, FaFileAlt, FaSync } from "react-icons/fa";
 import { FaGraduationCap } from 'react-icons/fa';
 
 const StatusPage = () => {
@@ -83,7 +83,7 @@ const StatusPage = () => {
   return (
     <div className="AdminStatus1">
       <div className="AdminStatus1-1">
-        <AdminSidebar />
+        <SuperAdminSidebar />
       </div>
       <div className="AdminStatus1-2">
         <div className="AdminStatus1-2-1">

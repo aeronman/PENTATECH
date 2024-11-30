@@ -114,7 +114,7 @@ export default function AdminFeedbacks() {
   return (
     <div className="AdminFeedbackDiv1">
       <div className="AdminFeedbackDiv1-1">
-        <AdminSidebar />
+        <SuperAdminSidebar />
       </div>
 
       <div className="AdminFeedbackDiv1-2">

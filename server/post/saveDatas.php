@@ -6,6 +6,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Helper function to sanitize input
+function sanitize_input($value) {
+    return empty($value) ? null : $value;
+}
+
 // Get POST data from React
 $data = json_decode(file_get_contents("php://input"));
 
@@ -16,7 +21,12 @@ if (!$data) {
 
 // Update user table
 $updateUser = $conn->prepare("UPDATE `user` SET `program_applied` = ?, `application_status` = ? WHERE UserID = ?");
-$updateUser->bind_param("ssi", $data->programApplied, $data->status, $data->personalDetails->userID);
+$updateUser->bind_param(
+    "ssi",
+    sanitize_input($data->programApplied),
+    sanitize_input($data->status),
+    sanitize_input($data->personalDetails->userID)
+);
 $updateUser->execute();
 
 // Update personal details
@@ -45,25 +55,25 @@ $personalStmt = $conn->prepare("
 
 $personalStmt->bind_param(
     "ssssssssssssssssssi",
-    $data->personalDetails->Student_ID,
-    $data->personalDetails->FIRST_NAME,
-    $data->personalDetails->MIDDLE_NAME,
-    $data->personalDetails->LAST_NAME,
-    $data->personalDetails->DATE_OF_BIRTH,
-    $data->personalDetails->age,
-    $data->personalDetails->PLACE_OF_BIRTH,
-    $data->personalDetails->Province,
-    $data->personalDetails->CITY_MUNICIPALITY,
-    $data->personalDetails->BARANGAY,
-    $data->personalDetails->STREET_ADDRESS,
-    $data->personalDetails->SEX,
-    $data->personalDetails->CIVIL_STATUS,
-    $data->personalDetails->PWD,
-    $data->personalDetails->RELIGION,
-    $data->personalDetails->CONTACT_NO,
-    $data->personalDetails->PWD_ID,
-    $data->personalDetails->PWDPreview,
-    $data->personalDetails->userID
+    sanitize_input($data->personalDetails->Student_ID),
+    sanitize_input($data->personalDetails->FIRST_NAME),
+    sanitize_input($data->personalDetails->MIDDLE_NAME),
+    sanitize_input($data->personalDetails->LAST_NAME),
+    sanitize_input($data->personalDetails->DATE_OF_BIRTH),
+    sanitize_input($data->personalDetails->age),
+    sanitize_input($data->personalDetails->PLACE_OF_BIRTH),
+    sanitize_input($data->personalDetails->Province),
+    sanitize_input($data->personalDetails->CITY_MUNICIPALITY),
+    sanitize_input($data->personalDetails->BARANGAY),
+    sanitize_input($data->personalDetails->STREET_ADDRESS),
+    sanitize_input($data->personalDetails->SEX),
+    sanitize_input($data->personalDetails->CIVIL_STATUS),
+    sanitize_input($data->personalDetails->PWD),
+    sanitize_input($data->personalDetails->RELIGION),
+    sanitize_input($data->personalDetails->CONTACT_NO),
+    sanitize_input($data->personalDetails->PWD_ID),
+    sanitize_input($data->personalDetails->PWDPreview),
+    sanitize_input($data->personalDetails->userID)
 );
 $personalStmt->execute();
 
@@ -90,22 +100,22 @@ $familyStmt = $conn->prepare("
 
 $familyStmt->bind_param(
     "sssssssssssssssi",
-    $data->familyData->father,         
-    $data->familyData->fatherOccupation, 
-    $data->familyData->fatherSalary,  
-    $data->familyData->mother,         
-    $data->familyData->motherOccupation,
-    $data->familyData->motherSalary, 
-    $data->familyData->siblingsWithFamily,
-    $data->familyData->siblingsWithWork, 
-    $data->familyData->siblingSalary,  
-    $data->familyData->siblingsElementary, 
-    $data->familyData->siblingsHighSchool, 
-    $data->familyData->siblingsCollege, 
-    $data->familyData->electricBill,  
-    $data->familyData->waterBill,     
-    $data->familyData->otherExpenses,  
-    $data->personalDetails->userID
+    sanitize_input($data->familyData->father),         
+    sanitize_input($data->familyData->fatherOccupation), 
+    sanitize_input($data->familyData->fatherSalary),  
+    sanitize_input($data->familyData->mother),         
+    sanitize_input($data->familyData->motherOccupation),
+    sanitize_input($data->familyData->motherSalary), 
+    sanitize_input($data->familyData->siblingsWithFamily),
+    sanitize_input($data->familyData->siblingsWithWork), 
+    sanitize_input($data->familyData->siblingSalary),  
+    sanitize_input($data->familyData->siblingsElementary), 
+    sanitize_input($data->familyData->siblingsHighSchool), 
+    sanitize_input($data->familyData->siblingsCollege), 
+    sanitize_input($data->familyData->electricBill),  
+    sanitize_input($data->familyData->waterBill),     
+    sanitize_input($data->familyData->otherExpenses),  
+    sanitize_input($data->personalDetails->userID)
 );
 $familyStmt->execute();
 
@@ -125,15 +135,15 @@ $eduStmt = $conn->prepare("
 
 $eduStmt->bind_param(
     "sssissssi",
-    $data->educationalBgData->lastSchool,
-    $data->educationalBgData->lastCourse,
-    $data->educationalBgData->grades,
-    $data->educationalBgData->numOfUnits,
-    $data->educationalBgData->newSchool,
-    $data->educationalBgData->newCourse,
-    $data->educationalBgData->levelYear,
-    $data->educationalBgData->semester,
-    $data->personalDetails->userID
+    sanitize_input($data->educationalBgData->lastSchool),
+    sanitize_input($data->educationalBgData->lastCourse),
+    sanitize_input($data->educationalBgData->grades),
+    sanitize_input($data->educationalBgData->numOfUnits),
+    sanitize_input($data->educationalBgData->newSchool),
+    sanitize_input($data->educationalBgData->newCourse),
+    sanitize_input($data->educationalBgData->levelYear),
+    sanitize_input($data->educationalBgData->semester),
+    sanitize_input($data->personalDetails->userID)
 );
 $eduStmt->execute();
 
@@ -153,15 +163,15 @@ $docsStmt = $conn->prepare("
 
 $docsStmt->bind_param(
     "ssssssssi",
-    $data->documentsData->bills,
-    $data->documentsData->brgyIndigency,
-    $data->documentsData->cedula,
-    $data->documentsData->socialCase,
-    $data->documentsData->form138,
-    $data->documentsData->certificateEnrollment,
-    $data->documentsData->certificateMembership,
-    $data->documentsData->certificateEmployment,
-    $data->personalDetails->userID
+    sanitize_input($data->documentsData->bills),
+    sanitize_input($data->documentsData->brgyIndigency),
+    sanitize_input($data->documentsData->cedula),
+    sanitize_input($data->documentsData->socialCase),
+    sanitize_input($data->documentsData->form138),
+    sanitize_input($data->documentsData->certificateEnrollment),
+    sanitize_input($data->documentsData->certificateMembership),
+    sanitize_input($data->documentsData->certificateEmployment),
+    sanitize_input($data->personalDetails->userID)
 );
 $docsStmt->execute();
 

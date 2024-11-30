@@ -139,7 +139,7 @@ function VideoCall() {
 
   return (
     <>
-      <h1 style={{ textAlign: "center", color: "black" }}>Tanginang Interview Yan</h1>
+      <h1 style={{ textAlign: "center", color: "black" }}>Interview</h1>
       <button onClick={startStream}>Start Video</button>
       <div className="container">
         <div className="video-container">

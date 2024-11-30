@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState , useEffect } from "react";
 import "./SuperAdminScholars.css";
 import SuperAdminSidebar from "../common/SuperAdminSidebar/SuperAdminSidebar";
 import RegProfile from "../../Registered/common/regprofile/regprofile";
-
+import { useNavigate } from "react-router-dom";
 // Add FontAwesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faFileExport, faFileAlt, faUserFriends, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -64,7 +64,7 @@ const handleEdit = (id) =>{
 return (
   <div className="AdminSholars1">
     <div className="AdminSholars1-1">
-      <AdminSidebar />
+      <SuperAdminSidebar />
     </div>
     <div className="AdminSholars1-2">
       <div className="AdminSholars1-2-1">
